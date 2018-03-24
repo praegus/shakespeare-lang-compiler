@@ -1,4 +1,4 @@
-package nl.java.shakespearelang;
+package nl.java.shakespearelang.executor;
 
 public class Main {
 
