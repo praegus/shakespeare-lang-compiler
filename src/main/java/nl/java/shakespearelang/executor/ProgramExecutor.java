@@ -1,8 +1,9 @@
 package nl.java.shakespearelang.executor;
 
+import lombok.extern.slf4j.Slf4j;
 import nl.java.shakespearelang.executor.assignment.AssignmentInterpreter;
 import nl.java.shakespearelang.parser.Act;
-import nl.java.shakespearelang.parser.Program;
+import nl.java.shakespearelang.parser.Play;
 import nl.java.shakespearelang.parser.Scene;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Line;
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class ProgramExecutor {
-
     private List<String> personaeOnStage = new ArrayList<>();
     private Map<String, Integer> characters;
     private Wordlist wordlist;
@@ -23,12 +24,20 @@ public class ProgramExecutor {
         this.wordlist = new Wordlist();
     }
 
-    public void executeProgram(Program program) throws Exception {
-        characters = program.getRollen();
-        for (Act act : program.getActs()) {
+    public void executeProgram(Play play) throws Exception {
+        this.characters = play.getCharacters();
+        for (String character : characters.keySet()) {
+            if (!wordlist.isCharacter(character)) {
+                throw new RuntimeException("Character " + character + " is not supported!");
+            }
+        }
+        for (Act act : play.getActs()) {
+            log.info("Act "+act.getTitle()+" is executed!");
             for (Scene scene : act.getScenes()) {
+                log.info("Scene "+scene.getTitle()+" is executed!");
                 personaeOnStage.addAll(scene.getEnter());
                 for (Line line : scene.getLines()) {
+                    log.info("Line "+line.getLine()+" is executed!");
                     executeLine(getObject(line.getSubject()), line);
                 }
                 personaeOnStage.removeAll(scene.getExit());
@@ -38,7 +47,7 @@ public class ProgramExecutor {
         System.out.println();
     }
 
-    private void executeLine(String object, Line line) throws Exception {
+    private void executeLine(String object, Line line) {
         Integer objectValue = characters.get(object);
         if (line instanceof Statement) {
             if (((Statement) line).isPrintNumber()) {
@@ -48,7 +57,7 @@ public class ProgramExecutor {
             }
         } else {
             AssignmentInterpreter assignmentInterpreter = new AssignmentInterpreter(wordlist, (Assignment) line);
-            objectValue = assignmentInterpreter.getValue(objectValue);
+            objectValue = assignmentInterpreter.getValue(objectValue, characters);
             characters.remove(object);
             characters.put(object, objectValue);
         }

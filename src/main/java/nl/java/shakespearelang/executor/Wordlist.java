@@ -7,14 +7,14 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Wordlist {
     private final List<String> adjectives;
     private final List<String> negativeNouns;
     private final List<String> positiveNouns;
-    private final List<String> possessives;
-
-
+    private final List<String> redundants;
+    private final List<String> characters;
 
     public Wordlist() throws IOException {
         adjectives = new ArrayList<>();
@@ -26,7 +26,11 @@ public class Wordlist {
         positiveNouns = new ArrayList<>(Arrays.asList(readFile("positive_noun.wordlist").split("\n")));
         positiveNouns.addAll(Arrays.asList(readFile("neutral_noun.wordlist").split("\n")));
 
-        possessives = Arrays.asList(readFile("first_person_possessive.wordlist").split("\n"));
+        redundants = new ArrayList<>(Arrays.asList(readFile("first_person_possessive.wordlist").split("\n")));
+        redundants.addAll(Arrays.asList(readFile("second_person_possessive.wordlist").split("\n")));
+        redundants.addAll(Arrays.asList(readFile("third_person_possessive.wordlist").split("\n")));
+        redundants.addAll(Arrays.asList(readFile("article.wordlist").split("\n")));
+        characters = Arrays.stream(readFile("character.wordlist").split("\n")).map(String::toLowerCase).collect(Collectors.toList());
     }
 
     private String readFile(String filename) throws IOException {
@@ -36,19 +40,24 @@ public class Wordlist {
         return IOUtils.toString(is, "UTF8");
     }
 
-    public boolean isAdjective(String word){
+    public boolean isAdjective(String word) {
         return adjectives.contains(word);
     }
 
-    public boolean isNegativeNoun(String word){
+    public boolean isNegativeNoun(String word) {
         return negativeNouns.contains(word);
     }
 
-    public boolean isPositiveNoun(String word){
+    public boolean isPositiveNoun(String word) {
         return positiveNouns.contains(word);
     }
 
-    public boolean isPossessive(String word) {
-        return possessives.contains(word);
+    public boolean isRedundant(String word) {
+        return redundants.contains(word);
     }
+
+    public boolean isCharacter(String word) {
+        return characters.contains(word.toLowerCase());
+    }
+
 }

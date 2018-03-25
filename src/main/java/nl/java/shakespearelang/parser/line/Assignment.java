@@ -1,23 +1,25 @@
 package nl.java.shakespearelang.parser.line;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import static nl.java.shakespearelang.parser.line.TextSimplifiers.*;
 
 @Getter
+@EqualsAndHashCode
 public class Assignment extends Line {
     private String[] words;
 
     public Assignment(String subject, String line) {
         super(subject, line);
         line = line.toLowerCase();
-        line = line.replaceAll("the difference between a", THEDIFFERENCEBETWEEN);
-        line = line.replaceAll("the difference between the", THEDIFFERENCEBETWEEN);
-        line = line.replaceAll("the sum of your ", THESUMOF+" ");
-        line = line.replaceAll("the sum of", THESUMOF);
-        line = line.replaceAll("sum of the", THESUMOF);
+        line = line.replaceAll("difference between", THEDIFFERENCEBETWEEN);
         line = line.replaceAll("sum of", THESUMOF);
-        line = line.replaceAll("and a", AND);
+        line = line.replaceAll("product of", THEPRODUCTOF);
+        line = line.replaceAll("square of", THESQUAREOF);
+        line = line.replaceAll("quotient of", THEQUOTIENTOF);
+        line = line.replaceAll("cube of", THECUBEOF);
+
         line = line.replaceAll("summer's day", "summer'sday");
         line = line.replaceAll("thyself", YOURSELF);
         this.words = line.split(" ");

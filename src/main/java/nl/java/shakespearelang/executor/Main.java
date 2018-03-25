@@ -1,10 +1,10 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.parser.Program;
+import nl.java.shakespearelang.parser.Play;
 
 public class Main {
 
-    private static final String programString = "The Infamous Hello World Program.\n"
+    private static final String programString = "The Infamous Hello World Play.\n"
         + "\n"
         + "Romeo, a young man with a remarkable patience.\n"
         + "Juliet, a likewise young woman of remarkable grace.\n"
@@ -44,8 +44,8 @@ public class Main {
         + " black cat! Speak thy mind!";
 
     public static void main(String[] args) throws Exception {
-        Program program = new Program(programString);
+        Play play = new Play(programString);
         ProgramExecutor executor = new ProgramExecutor();
-        executor.executeProgram(program);
+        executor.executeProgram(play);
     }
 }
