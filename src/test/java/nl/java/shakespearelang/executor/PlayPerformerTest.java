@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class PlayExecutorTest {
+public class PlayPerformerTest {
 
     @Test
     public void playExecutorTest() throws Exception {
@@ -15,8 +15,8 @@ public class PlayExecutorTest {
 
         Play play = new Play(theString);
 
-        ProgramExecutor programExecutor = new ProgramExecutor();
-        programExecutor.executeProgram(play);
+        PlayPerformer playPerformer = new PlayPerformer(play);
+        playPerformer.performPlay();
     }
 
     private String readFile(String filename) throws IOException {

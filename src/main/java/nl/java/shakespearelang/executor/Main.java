@@ -45,7 +45,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Play play = new Play(programString);
-        ProgramExecutor executor = new ProgramExecutor();
-        executor.executeProgram(play);
+        PlayPerformer executor = new PlayPerformer(play);
+        executor.performPlay();
     }
 }

@@ -1,8 +1,10 @@
 package nl.java.shakespearelang.executor.assignment;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
+@EqualsAndHashCode
 public class OperatorType {
 
     private String type;
