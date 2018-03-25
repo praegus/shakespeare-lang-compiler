@@ -1,6 +1,6 @@
 package nl.java.shakespearelang;
 
-import nl.java.shakespearelang.executor.Executor;
+import nl.java.shakespearelang.executor.ProgramExecutor;
 import nl.java.shakespearelang.parser.Program;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
@@ -20,8 +20,8 @@ public class ProgramTest {
 
         Program program = new Program(theString);
 
-        Executor executor = new Executor();
-        executor.executeProgram(program);
+        ProgramExecutor programExecutor = new ProgramExecutor();
+        programExecutor.executeProgram(program);
     }
 
     private String readFile(String filename) throws IOException {

@@ -18,11 +18,11 @@ public class Scene {
 
     public Scene(String titleAndScene, int sceneNumber) throws Exception {
         this.title = titleAndScene.substring(0, titleAndScene.indexOf("[")).trim();
-        this.enter = setEnterExit(titleAndScene.substring(titleAndScene.indexOf("[Enter"), titleAndScene.indexOf("]") + 1).trim());
+        this.enter = setEnterExit(titleAndScene.substring(titleAndScene.indexOf("[Enter"), titleAndScene.indexOf("]")).trim());
         if (titleAndScene.contains("[Exit")) {
-            this.exit = setEnterExit(titleAndScene.substring(titleAndScene.indexOf("[Enter"), titleAndScene.indexOf("]") + 1).trim());
+            this.exit = setEnterExit(titleAndScene.substring(titleAndScene.indexOf("[Exit")).replaceAll("]",""));
         } else {
-            this.exit = setEnterExit(titleAndScene.substring(titleAndScene.indexOf("[Enter"), titleAndScene.indexOf("]") + 1).trim());
+            this.exit = setEnterExit(titleAndScene.substring(titleAndScene.indexOf("[Exeunt")).replaceAll("]",""));
         }
         String content = titleAndScene.substring(titleAndScene.indexOf("]") + 1);
         content = content.substring(0, content.indexOf("[")).trim();

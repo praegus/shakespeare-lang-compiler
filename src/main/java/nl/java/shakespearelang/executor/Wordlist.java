@@ -12,6 +12,8 @@ public class Wordlist {
     private final List<String> adjectives;
     private final List<String> negativeNouns;
     private final List<String> positiveNouns;
+    private final List<String> possessives;
+
 
 
     public Wordlist() throws IOException {
@@ -21,7 +23,10 @@ public class Wordlist {
         adjectives.addAll(Arrays.asList(readFile("positive_adjective.wordlist").split("\n")));
 
         negativeNouns = Arrays.asList(readFile("negative_noun.wordlist").split("\n"));
-        positiveNouns = Arrays.asList(readFile("positive_noun.wordlist").split("\n"));
+        positiveNouns = new ArrayList<>(Arrays.asList(readFile("positive_noun.wordlist").split("\n")));
+        positiveNouns.addAll(Arrays.asList(readFile("neutral_noun.wordlist").split("\n")));
+
+        possessives = Arrays.asList(readFile("first_person_possessive.wordlist").split("\n"));
     }
 
     private String readFile(String filename) throws IOException {
@@ -41,5 +46,9 @@ public class Wordlist {
 
     public boolean isPositiveNoun(String word){
         return positiveNouns.contains(word);
+    }
+
+    public boolean isPossessive(String word) {
+        return possessives.contains(word);
     }
 }

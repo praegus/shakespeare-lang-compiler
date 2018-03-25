@@ -1,5 +1,6 @@
 package nl.java.shakespearelang.executor;
 
+import nl.java.shakespearelang.executor.assignment.AssignmentInterpreter;
 import nl.java.shakespearelang.parser.Act;
 import nl.java.shakespearelang.parser.Program;
 import nl.java.shakespearelang.parser.Scene;
@@ -12,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Executor {
+public class ProgramExecutor {
 
     private List<String> personaeOnStage = new ArrayList<>();
     private Map<String, Integer> characters;
     private Wordlist wordlist;
 
-    public Executor() throws IOException {
+    public ProgramExecutor() throws IOException {
         this.wordlist = new Wordlist();
     }
 
@@ -30,8 +31,11 @@ public class Executor {
                 for (Line line : scene.getLines()) {
                     executeLine(getObject(line.getSubject()), line);
                 }
+                personaeOnStage.removeAll(scene.getExit());
             }
         }
+        System.out.println();
+        System.out.println();
     }
 
     private void executeLine(String object, Line line) throws Exception {
@@ -43,14 +47,11 @@ public class Executor {
                 System.out.print(Character.toString((char) objectValue.intValue()));
             }
         } else {
-            AssignmentExecutor assignmentExecutor = new AssignmentExecutor(wordlist, (Assignment) line);
+            AssignmentInterpreter assignmentInterpreter = new AssignmentInterpreter(wordlist, (Assignment) line);
+            objectValue = assignmentInterpreter.getValue(objectValue);
             characters.remove(object);
-            characters.put(object, assignmentExecutor.getValue());
+            characters.put(object, objectValue);
         }
-
-    }
-
-    private void assignObject(String object, Assignment line) {
 
     }
 
