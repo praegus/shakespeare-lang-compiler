@@ -34,8 +34,8 @@ public class LineTest {
 
     @Test
     public void create_assignment_with_quotient_of() {
-        Assignment line = new Assignment("romeo", "quotient of");
-        assertThat(line.getWords()).containsExactly("THEQUOTIENTOF");
+        Assignment line = new Assignment("romeo", "quotient between");
+        assertThat(line.getWords()).containsExactly("THEQUOTIENTBETWEEN");
     }
 
     @Test

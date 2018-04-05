@@ -56,7 +56,7 @@ public class AssignmentPerformerTest {
 
     @Test
     public void calculation_keywords_are_converted_to_operators() throws IOException {
-        List<OperatorType> result = AssignmentPerformer.setOperators(asList(THEDIFFERENCEBETWEEN, THESUMOF, THEPRODUCTOF, THESQUAREOF, THEQUOTIENTOF, THECUBEOF), new Wordlist());
+        List<OperatorType> result = AssignmentPerformer.setOperators(asList(THEDIFFERENCEBETWEEN, THESUMOF, THEPRODUCTOF, THESQUAREOF, THEQUOTIENTBETWEEN, THECUBEOF), new Wordlist());
         assertThat(result).containsExactly(SUBTRACT, ADD, MULTIPLY, SQUARE, DIVIDE, CUBE);
     }
 
