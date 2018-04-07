@@ -1,4 +1,4 @@
-package nl.java.shakespearelang.executor.assignment;
+package nl.java.shakespearelang.executor;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,7 +22,6 @@ public class OperatorType {
     public static final OperatorType NEGATIVE_NOUN = new OperatorType("NEGATIVE_NOUN");
     public static final OperatorType POSITIVE_NOUN = new OperatorType("POSITIVE_NOUN");
     public static final OperatorType OBJECT_VALUE = new OperatorType("OBJECT_VALUE");
-    public static final OperatorType AND = new OperatorType("AND");
 
     public static final OperatorType CHARACTER = new OperatorType("CHARACTER");
 
