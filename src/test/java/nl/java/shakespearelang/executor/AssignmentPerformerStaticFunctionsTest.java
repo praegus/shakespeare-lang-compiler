@@ -9,7 +9,6 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static nl.java.shakespearelang.executor.OperatorType.*;
-import static nl.java.shakespearelang.parser.line.TextSimplifiers.AND;
 import static nl.java.shakespearelang.parser.line.TextSimplifiers.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -103,35 +102,49 @@ public class AssignmentPerformerStaticFunctionsTest {
         int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(SUBTRACT, SQUARE, SUBTRACT, 2, -4, CUBE, -4)));
         assertThat(result).isEqualTo(100);
     }
-//
-//    @Test
-//    public void if_a_cube_operation_is_performed_the_result_is_the_cube(){
-//        int result = AssignmentPerformer.performOperation(asList(CUBE, 3));
-//        assertThat(result).isEqualTo(9);
-//    }
-//
-//    @Test
-//    public void if_a_add_operation_is_performed_the_result_is_the_addition(){
-//        int result = AssignmentPerformer.performOperation(asList(ADD, 3, 4));
-//        assertThat(result).isEqualTo(7);
-//    }
-//
-//    @Test
-//    public void if_a_subtract_operation_is_performed_the_result_is_the_cube(){
-//        int result = AssignmentPerformer.performOperation(asList(SUBTRACT, 3, 4));
-//        assertThat(result).isEqualTo(-1);
-//    }
-//
-//    @Test
-//    public void if_a_multiply_operation_is_performed_the_result_is_the_cube(){
-//        int result = AssignmentPerformer.performOperation(asList(MULTIPLY, 3, 4));
-//        assertThat(result).isEqualTo(12);
-//    }
-//
-//    @Test
-//    public void if_a_divide_operation_is_performed_the_result_is_the_cube(){
-//        int result = AssignmentPerformer.performOperation(asList(DIVIDE, 4, 4));
-//        assertThat(result).isEqualTo(1);
-//    }
+
+    @Test
+    public void if_a_square_operation_is_performed_the_result_is_the_square(){
+        int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(SQUARE, 3)));
+        assertThat(result).isEqualTo(9);
+    }
+
+    @Test
+    public void if_a_cube_operation_is_performed_the_result_is_the_cube(){
+        int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(CUBE, 3)));
+        assertThat(result).isEqualTo(27);
+    }
+
+    @Test
+    public void if_a_add_operation_is_performed_the_result_is_the_addition(){
+        int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(OperatorType.ADD, 3, 4)));
+        assertThat(result).isEqualTo(7);
+    }
+
+    @Test
+    public void if_a_subtract_operation_is_performed_the_result_is_the_cube(){
+        int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(OperatorType.SUBTRACT, 3, 4)));
+        assertThat(result).isEqualTo(-1);
+    }
+
+    @Test
+    public void if_a_multiply_operation_is_performed_the_result_is_the_cube(){
+        int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(OperatorType.MULTIPLY, 3, 4)));
+        assertThat(result).isEqualTo(12);
+    }
+
+    @Test
+    public void if_a_divide_operation_is_performed_the_result_is_the_cube(){
+        int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(OperatorType.DIVIDE, 4, 4)));
+        assertThat(result).isEqualTo(1);
+    }
+
+
+    @Test
+    public void if_the_operator_is_unknown_an_exception_is_expected(){
+        assertThatThrownBy(() -> AssignmentPerformer.executeOperations(new ArrayList<>(asList(3.4, 4, 4))))
+            .isInstanceOf(RuntimeException.class)
+            .hasMessage("Unknown operator type!");
+    }
 
 }

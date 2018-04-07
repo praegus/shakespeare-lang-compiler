@@ -117,38 +117,25 @@ public class AssignmentPerformer {
     static int executeOperations(List<Object> objects) {
         int i = objects.size() - 1;
         while (objects.size() != 1) {
-            if (objects.get(i).equals(OperatorType.CUBE)) {
-                objects.set(i, (int) Math.pow((Integer) objects.get(i + 1), 3));
+            if (objects.get(i) instanceof OperatorType) {
+                if (objects.get(i).equals(OperatorType.SQUARE)) {
+                    objects.set(i, (int) Math.pow((Integer) objects.get(i + 1), 2));
+                } else if (objects.get(i).equals(OperatorType.CUBE)) {
+                    objects.set(i, (int) Math.pow((Integer) objects.get(i + 1), 3));
+                } else if (objects.get(i).equals(OperatorType.ADD)) {
+                    objects.set(i, (int) objects.get(i + 1) + (int) objects.get(i + 2));
+                    objects.remove(i + 1);
+                } else if (objects.get(i).equals(OperatorType.SUBTRACT)) {
+                    objects.set(i, (int) objects.get(i + 1) - (int) objects.get(i + 2));
+                    objects.remove(i + 1);
+                } else if (objects.get(i).equals(OperatorType.MULTIPLY)) {
+                    objects.set(i, (int) objects.get(i + 1) * (int) objects.get(i + 2));
+                    objects.remove(i + 1);
+                } else if (objects.get(i).equals(OperatorType.DIVIDE)) {
+                    objects.set(i, (int) objects.get(i + 1) / (int) objects.get(i + 2));
+                    objects.remove(i + 1);
+                }
                 objects.remove(i + 1);
-                i = objects.size() - 1;
-            } else if (objects.get(i).equals(OperatorType.SQUARE)) {
-                objects.set(i, (int) Math.pow((Integer) objects.get(i + 1), 2));
-                objects.remove(i + 1);
-                i = objects.size() - 1;
-            } else if (objects.get(i).equals(OperatorType.ADD)) {
-                objects.set(i, (int) objects.get(i + 1) + (int) objects.get(i + 2));
-                objects.remove(i + 1);
-                objects.remove(i + 1);
-
-                i = objects.size() - 1;
-            } else if (objects.get(i).equals(OperatorType.SUBTRACT)) {
-                int result = (int) objects.get(i + 1) - (int) objects.get(i + 2);
-                objects.set(i, result);
-                objects.remove(i + 1);
-                objects.remove(i + 1);
-
-                i = objects.size() - 1;
-            } else if (objects.get(i).equals(OperatorType.MULTIPLY)) {
-                objects.set(i, (int) objects.get(i + 1) * (int) objects.get(i + 2));
-                objects.remove(i + 1);
-                objects.remove(i + 1);
-
-                i = objects.size() - 1;
-            } else if (objects.get(i).equals(OperatorType.DIVIDE)) {
-                objects.set(i, (int) objects.get(i + 1) / (int) objects.get(i + 2));
-                objects.remove(i + 1);
-                objects.remove(i + 1);
-
                 i = objects.size() - 1;
             } else if (objects.get(i) instanceof Integer) {
                 i--;
