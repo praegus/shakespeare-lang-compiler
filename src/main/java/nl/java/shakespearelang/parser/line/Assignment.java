@@ -19,6 +19,8 @@ public class Assignment extends Line {
         line = line.replaceAll("square of", THESQUAREOF);
         line = line.replaceAll("quotient between", THEQUOTIENTBETWEEN);
         line = line.replaceAll("cube of", THECUBEOF);
+        line = line.replaceAll("twice", TWICE);
+
 
         line = line.replaceAll("summer's day", "summer'sday");
         line = line.replaceAll("thyself", YOURSELF);

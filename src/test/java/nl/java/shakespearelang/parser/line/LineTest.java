@@ -45,6 +45,12 @@ public class LineTest {
     }
 
     @Test
+    public void create_assignment_with_twice() {
+        Assignment line = new Assignment("romeo", "twice");
+        assertThat(line.getWords()).containsExactly("TWICE");
+    }
+
+    @Test
     public void create_assignment_with_summers_day() {
         Assignment line = new Assignment("romeo", "summer's day");
         assertThat(line.getWords()).containsExactly("summer'sday");

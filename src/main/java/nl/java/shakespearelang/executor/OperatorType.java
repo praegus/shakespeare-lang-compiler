@@ -17,6 +17,7 @@ public class OperatorType {
     public static final OperatorType SQUARE = new OperatorType("SQUARE");
     public static final OperatorType QUOTIENT = new OperatorType("QUOTIENT");
     public static final OperatorType CUBE = new OperatorType("CUBE");
+    public static final OperatorType TWICE = new OperatorType("TWICE");
 
     public static final OperatorType ADJECTIVE = new OperatorType("AJECTIVE");
     public static final OperatorType NEGATIVE_NOUN = new OperatorType("NEGATIVE_NOUN");

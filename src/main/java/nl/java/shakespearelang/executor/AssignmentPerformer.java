@@ -88,6 +88,8 @@ public class AssignmentPerformer {
                 operators.add(OperatorType.DIVIDE);
             } else if (word.equals(THECUBEOF)) {
                 operators.add(OperatorType.CUBE);
+            } else if (word.equals(TWICE)) {
+                operators.add(OperatorType.TWICE);
             } else {
                 throw new RuntimeException("The word '" + word + "' is unknown!");
             }
@@ -134,6 +136,10 @@ public class AssignmentPerformer {
                 } else if (objects.get(i).equals(OperatorType.DIVIDE)) {
                     objects.set(i, (int) objects.get(i + 1) / (int) objects.get(i + 2));
                     objects.remove(i + 1);
+                } else if (objects.get(i).equals(OperatorType.TWICE)) {
+                    objects.set(i, (int) objects.get(i + 1) * 2);
+                } else {
+                    throw new RuntimeException("Unknown operator type!");
                 }
                 objects.remove(i + 1);
                 i = objects.size() - 1;
