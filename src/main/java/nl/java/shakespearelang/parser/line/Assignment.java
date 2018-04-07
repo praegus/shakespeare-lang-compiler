@@ -17,7 +17,7 @@ public class Assignment extends Line {
         line = line.replaceAll("sum of", THESUMOF);
         line = line.replaceAll("product of", THEPRODUCTOF);
         line = line.replaceAll("square of", THESQUAREOF);
-        line = line.replaceAll("quotient of", THEQUOTIENTOF);
+        line = line.replaceAll("quotient between", THEQUOTIENTBETWEEN);
         line = line.replaceAll("cube of", THECUBEOF);
 
         line = line.replaceAll("summer's day", "summer'sday");

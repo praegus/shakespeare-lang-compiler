@@ -84,7 +84,7 @@ public class AssignmentPerformer {
                 operators.add(OperatorType.MULTIPLY);
             } else if (word.equals(THESQUAREOF)) {
                 operators.add(OperatorType.SQUARE);
-            } else if (word.equals(THEQUOTIENTOF)) {
+            } else if (word.equals(THEQUOTIENTBETWEEN)) {
                 operators.add(OperatorType.DIVIDE);
             } else if (word.equals(THECUBEOF)) {
                 operators.add(OperatorType.CUBE);
