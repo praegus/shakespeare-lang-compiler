@@ -17,6 +17,7 @@ public class Play {
         input = input.toLowerCase();
         input = input.replaceAll("\n", "");
         input = input.replaceAll("\t", " ");
+        input = input.replaceAll("\r", "");
         while (input.contains("  ")) {
             input = input.replaceAll("  ", " ");
         }

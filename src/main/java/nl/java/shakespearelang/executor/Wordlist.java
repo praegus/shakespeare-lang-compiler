@@ -18,19 +18,19 @@ public class Wordlist {
 
     public Wordlist() throws IOException {
         adjectives = new ArrayList<>();
-        adjectives.addAll(Arrays.asList(readFile("negative_adjective.wordlist").split("\n")));
-        adjectives.addAll(Arrays.asList(readFile("neutral_adjective.wordlist").split("\n")));
-        adjectives.addAll(Arrays.asList(readFile("positive_adjective.wordlist").split("\n")));
+        adjectives.addAll(Arrays.asList(readFile("negative_adjective.wordlist").split("\r\n")));
+        adjectives.addAll(Arrays.asList(readFile("neutral_adjective.wordlist").split("\r\n")));
+        adjectives.addAll(Arrays.asList(readFile("positive_adjective.wordlist").split("\r\n")));
 
-        negativeNouns = Arrays.asList(readFile("negative_noun.wordlist").split("\n"));
-        positiveNouns = new ArrayList<>(Arrays.asList(readFile("positive_noun.wordlist").split("\n")));
-        positiveNouns.addAll(Arrays.asList(readFile("neutral_noun.wordlist").split("\n")));
+        negativeNouns = Arrays.asList(readFile("negative_noun.wordlist").split("\r\n"));
+        positiveNouns = new ArrayList<>(Arrays.asList(readFile("positive_noun.wordlist").split("\r\n")));
+        positiveNouns.addAll(Arrays.asList(readFile("neutral_noun.wordlist").split("\r\n")));
 
-        redundants = new ArrayList<>(Arrays.asList(readFile("first_person_possessive.wordlist").split("\n")));
-        redundants.addAll(Arrays.asList(readFile("second_person_possessive.wordlist").split("\n")));
-        redundants.addAll(Arrays.asList(readFile("third_person_possessive.wordlist").split("\n")));
-        redundants.addAll(Arrays.asList(readFile("article.wordlist").split("\n")));
-        characters = Arrays.stream(readFile("character.wordlist").split("\n")).map(String::toLowerCase).collect(Collectors.toList());
+        redundants = new ArrayList<>(Arrays.asList(readFile("first_person_possessive.wordlist").split("\r\n")));
+        redundants.addAll(Arrays.asList(readFile("second_person_possessive.wordlist").split("\r\n")));
+        redundants.addAll(Arrays.asList(readFile("third_person_possessive.wordlist").split("\r\n")));
+        redundants.addAll(Arrays.asList(readFile("article.wordlist").split("\r\n")));
+        characters = Arrays.stream(readFile("character.wordlist").split("\r\n")).map(String::toLowerCase).collect(Collectors.toList());
     }
 
     private String readFile(String filename) throws IOException {

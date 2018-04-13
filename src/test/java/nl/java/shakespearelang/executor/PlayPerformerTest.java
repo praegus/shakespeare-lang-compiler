@@ -15,7 +15,6 @@ import java.io.PrintStream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PlayPerformerTest {
-
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
