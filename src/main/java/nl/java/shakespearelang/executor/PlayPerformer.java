@@ -6,7 +6,7 @@ import nl.java.shakespearelang.parser.Play;
 import nl.java.shakespearelang.parser.Scene;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Line;
-import nl.java.shakespearelang.parser.line.Statement;
+import nl.java.shakespearelang.parser.line.OutputStatement;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class PlayPerformer {
 
     private void performLine(String object, Line line) {
         Integer objectValue = characters.get(object);
-        if (line instanceof Statement) {
+        if (line instanceof OutputStatement) {
             performStatement(line, objectValue);
         } else if (line instanceof Assignment) {
             AssignmentPerformer assignmentPerformer = new AssignmentPerformer((Assignment) line, characters, objectValue, wordlist);
@@ -62,7 +62,7 @@ public class PlayPerformer {
     }
 
     private void performStatement(Line line, Integer objectValue) {
-        if (((Statement) line).isPrintNumber()) {
+        if (((OutputStatement) line).isPrintNumber()) {
             System.out.print(objectValue);
         } else {
             System.out.print(Character.toString((char) objectValue.intValue()));

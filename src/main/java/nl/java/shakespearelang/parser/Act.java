@@ -13,7 +13,7 @@ public class Act {
     private List<Scene> scenes = new ArrayList<>();
     private int actNumber;
 
-    public Act(String actString, int number) throws Exception {
+    public Act(String actString, int number) {
         actNumber = number;
         String[] titleAndScenes = actString.split("scene ");
         setTitleAndActNumber(titleAndScenes[0].replaceFirst("\\.", "").trim());

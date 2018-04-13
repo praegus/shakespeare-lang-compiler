@@ -42,6 +42,18 @@ public class PlayPerformerTest {
         assertThat(outContent.toString().trim()).isEqualTo("Hello World!");
     }
 
+    @Ignore // work in progress
+    @Test
+    public void prime() throws Exception {
+        String theString = readFile("primes.spl");
+
+        Play play = new Play(theString);
+
+        PlayPerformer playPerformer = new PlayPerformer(play);
+        playPerformer.performPlay();
+    }
+
+
     private String readFile(String filename) throws IOException {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream is = classloader.getResourceAsStream(filename);

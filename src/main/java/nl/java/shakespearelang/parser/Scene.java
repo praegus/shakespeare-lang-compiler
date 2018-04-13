@@ -2,8 +2,9 @@ package nl.java.shakespearelang.parser;
 
 import lombok.Getter;
 import nl.java.shakespearelang.parser.line.Assignment;
+import nl.java.shakespearelang.parser.line.InputStatement;
 import nl.java.shakespearelang.parser.line.Line;
-import nl.java.shakespearelang.parser.line.Statement;
+import nl.java.shakespearelang.parser.line.OutputStatement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class Scene {
         for (String line : linesString) {
             if (line.contains(":")) {
                 currentSubject = line.substring(0, line.indexOf(":"));
-                addLine(currentSubject, line.substring(line.indexOf(":") + 1));
+                addLine(currentSubject, line.substring(line.indexOf(":") + 1).trim());
             } else {
                 addLine(currentSubject, line);
             }
@@ -66,12 +67,14 @@ public class Scene {
     }
 
     private void addLine(String currentSubject, String line) {
-        line = line.trim().replace("\n", "");
-        if (line.toLowerCase().equals("speak your mind") || line.toLowerCase().equals("speak thy mind")) {
-            lines.add(new Statement(currentSubject, line, false));
-        } else if (line.toLowerCase().startsWith("you")) {
+        line = line.trim();
+        if (line.equals("listen to your heart")) {
+            lines.add(new InputStatement(currentSubject, line));
+        } else if (line.equals("speak your mind") || line.equals("speak thy mind")) {
+            lines.add(new OutputStatement(currentSubject, line, false));
+        } else if (line.startsWith("you")) {
             lines.add(new Assignment(currentSubject, line));
-        } else if (line.toLowerCase().startsWith("thou")) {
+        } else if (line.startsWith("thou")) {
             lines.add(new Assignment(currentSubject, line));
         } else {
             throw new RuntimeException("type of line is unclear!");

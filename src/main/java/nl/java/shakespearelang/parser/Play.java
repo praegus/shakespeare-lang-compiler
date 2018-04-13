@@ -13,7 +13,7 @@ public class Play {
     private Map<String, Integer> characters = new HashMap<>();
     private List<Act> acts = new ArrayList<>();
 
-    public Play(String input) throws Exception {
+    public Play(String input) {
         input = input.toLowerCase();
         input = input.replaceAll("\n", "");
         input = input.replaceAll("\t", " ");
@@ -30,10 +30,10 @@ public class Play {
     }
 
     private void extractPersonae(String input) {
-        if (!input.contains("act")) {
+        if (!input.contains("act ")) {
             throw new RuntimeException("Cannot parse program, there are no acts!");
         }
-        String[] personae = input.substring(input.indexOf(".") + 1, input.indexOf("act")).trim().split("\\.");
+        String[] personae = input.substring(input.indexOf(".") + 1, input.indexOf(" act ")).trim().split("\\.");
         for (String aPersonae : personae) {
             if(!aPersonae.contains(",")){
                 throw new RuntimeException("Cannot parse program, Character has no description starting with a comma and ending with a dot!");
@@ -42,8 +42,8 @@ public class Play {
         }
     }
 
-    private void extractActs(String input) throws Exception {
-        String[] actsString = input.split("act");
+    private void extractActs(String input) {
+        String[] actsString = input.split(" act ");
         for (int i = 1; i < actsString.length; i++) {
             acts.add(new Act(actsString[i], i));
         }
