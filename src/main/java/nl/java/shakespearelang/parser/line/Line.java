@@ -8,7 +8,7 @@ public abstract class Line {
     private String line;
 
     public Line(String subject, String line) {
-        this.subject = subject.trim();
+        this.subject = subject != null ? subject.trim() : null;
         this.line = line.trim().replace("\n", " ");
     }
 }

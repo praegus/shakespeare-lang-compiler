@@ -5,11 +5,14 @@ import nl.java.shakespearelang.parser.Act;
 import nl.java.shakespearelang.parser.Play;
 import nl.java.shakespearelang.parser.Scene;
 import nl.java.shakespearelang.parser.line.Assignment;
+import nl.java.shakespearelang.parser.line.Enter;
+import nl.java.shakespearelang.parser.line.Exit;
 import nl.java.shakespearelang.parser.line.Line;
 import nl.java.shakespearelang.parser.line.OutputStatement;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +29,12 @@ public class PlayPerformer {
         initializeCharacters(play.getCharacters());
     }
 
-    public void performPlay() throws Exception {
+    public void performPlay() {
         for (Act act : play.getActs()) {
             for (Scene scene : act.getScenes()) {
-                personaeOnStage.addAll(scene.getEnter());
                 for (Line line : scene.getLines()) {
-                    performLine(getObjectOfLine(line.getSubject()), line);
+                    performLine(line);
                 }
-                personaeOnStage.removeAll(scene.getExit());
             }
         }
         System.out.println();
@@ -49,15 +50,27 @@ public class PlayPerformer {
         this.characters = characters;
     }
 
-    private void performLine(String object, Line line) {
-        Integer objectValue = characters.get(object);
-        if (line instanceof OutputStatement) {
-            performStatement(line, objectValue);
+    private void performLine(Line line) {
+        if (line instanceof Enter) {
+            personaeOnStage.addAll(((Enter) line).getCharacters());
+        } else if (line instanceof Exit) {
+            exitPersonae((Exit) line);
+        } else if (line instanceof OutputStatement) {
+            performStatement(line, characters.get(getObjectOfLine(line.getSubject())));
         } else if (line instanceof Assignment) {
-            AssignmentPerformer assignmentPerformer = new AssignmentPerformer((Assignment) line, characters, objectValue, wordlist);
+            String object = getObjectOfLine(line.getSubject());
+            AssignmentPerformer assignmentPerformer = new AssignmentPerformer((Assignment) line, characters, characters.get(object), wordlist);
             characters.replace(object, assignmentPerformer.performAssignment());
         } else {
             throw new RuntimeException("unknown line type: " + line.getClass().getSimpleName());
+        }
+    }
+
+    private void exitPersonae(Exit line) {
+        if (line.isExeunt()) {
+            personaeOnStage = Collections.emptyList();
+        } else {
+            personaeOnStage.removeAll(line.getCharacters());
         }
     }
 
@@ -69,11 +82,11 @@ public class PlayPerformer {
         }
     }
 
-    private String getObjectOfLine(String subject) throws Exception {
+    private String getObjectOfLine(String subject) {
         if (personaeOnStage.size() != 2) {
-            throw new Exception("aantal personen on stage is niet goed!");
+            throw new RuntimeException("Number of characters on stage is not correct!");
         } else if (!personaeOnStage.contains(subject)) {
-            throw new Exception("Sprekende persoon is niet on stage!");
+            throw new RuntimeException("Speaking person is not on stage!");
         }
         int indexOfSubject = personaeOnStage.indexOf(subject);
         if (indexOfSubject == 0) {
