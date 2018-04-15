@@ -2,6 +2,8 @@ package nl.java.shakespearelang.parser;
 
 import lombok.Getter;
 import nl.java.shakespearelang.parser.line.Assignment;
+import nl.java.shakespearelang.parser.line.Enter;
+import nl.java.shakespearelang.parser.line.Exit;
 import nl.java.shakespearelang.parser.line.InputStatement;
 import nl.java.shakespearelang.parser.line.Line;
 import nl.java.shakespearelang.parser.line.OutputStatement;
@@ -15,8 +17,6 @@ import static nl.java.shakespearelang.parser.RomanToArabicConverter.romanToArabi
 public class Scene {
     private String title;
     private int sceneNumber;
-    private List<String> enter;
-    private List<String> exit;
     private List<Line> lines = new ArrayList<>();
 
     public Scene(String titleAndScene, int sceneNumber) {
@@ -26,17 +26,7 @@ public class Scene {
         }
         setTitleAndsceneNumber(titleAndScene.substring(0, titleAndScene.indexOf(".")).trim());
 
-        if (!titleAndScene.contains("]") || !titleAndScene.contains("[enter") || !titleAndScene.contains("[exit") && !titleAndScene.contains("[exeunt")) {
-            throw new RuntimeException("Scene should contain an enter and exit or exeunt surrounded by square brackets ([])!");
-        }
-        this.enter = setEnterExit(titleAndScene.substring(titleAndScene.indexOf("[enter"), titleAndScene.indexOf("]")).trim());
-        if (titleAndScene.contains("[exit")) {
-            this.exit = setEnterExit(titleAndScene.substring(titleAndScene.indexOf("[exit")).replaceAll("]", ""));
-        } else {
-            this.exit = setEnterExit(titleAndScene.substring(titleAndScene.indexOf("[exeunt")).replaceAll("]", ""));
-        }
-        String content = titleAndScene.substring(titleAndScene.indexOf("]") + 1);
-        content = content.substring(0, content.indexOf("[")).trim();
+        String content = titleAndScene.substring(titleAndScene.indexOf(".") + 1).trim();
         setLines(content);
     }
 
@@ -52,12 +42,15 @@ public class Scene {
     }
 
     private void setLines(String content) {
-        content = content.replace("!", ".");
         String[] linesString = content.split("\\.");
 
         String currentSubject = "";
         for (String line : linesString) {
-            if (line.contains(":")) {
+            if (line.contains("enter")) {
+                lines.add(new Enter(line));
+            } else if (line.contains("exit") || line.contains("exeunt")) {
+                lines.add(new Exit(line));
+            } else if (line.contains(":")) {
                 currentSubject = line.substring(0, line.indexOf(":"));
                 addLine(currentSubject, line.substring(line.indexOf(":") + 1).trim());
             } else {
@@ -79,16 +72,5 @@ public class Scene {
         } else {
             throw new RuntimeException("type of line is unclear!");
         }
-    }
-
-    private List<String> setEnterExit(String enterExit) {
-        String[] words = enterExit.split(" ");
-        List<String> players = new ArrayList<>();
-        for (int i = 1; i < words.length; i++) {
-            if (!words[i].equals("and")) {
-                players.add(words[i]);
-            }
-        }
-        return players;
     }
 }

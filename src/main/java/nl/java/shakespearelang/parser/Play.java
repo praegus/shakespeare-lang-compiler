@@ -18,6 +18,10 @@ public class Play {
         input = input.replaceAll("\n", "");
         input = input.replaceAll("\t", " ");
         input = input.replaceAll("\r", "");
+        input = input.replaceAll("!", ".");
+        input = input.replaceAll("\\[", "");
+        input = input.replaceAll("]", ".");
+
         while (input.contains("  ")) {
             input = input.replaceAll("  ", " ");
         }
