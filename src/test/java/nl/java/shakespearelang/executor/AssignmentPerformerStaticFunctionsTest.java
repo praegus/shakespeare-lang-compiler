@@ -69,7 +69,7 @@ public class AssignmentPerformerStaticFunctionsTest {
     @Test
     public void characters_are_converted_to_operators() throws IOException {
         List<OperatorType> result = AssignmentPerformer.setOperators(singletonList("Romeo"), new Wordlist());
-        assertThat(result).containsExactly(OperatorType.CHARACTER.setName("Romeo"));
+        assertThat(result).containsExactly(OperatorType.CHARACTER.setCharacterInPlay("Romeo"));
     }
 
     @Test

@@ -1,14 +1,15 @@
 package nl.java.shakespearelang.parser.line;
 
 import lombok.Getter;
+import nl.java.shakespearelang.CharacterInPlay;
 
 @Getter
 public abstract class Line {
-    private String subject;
+    private CharacterInPlay subject;
     private String line;
 
-    public Line(String subject, String line) {
-        this.subject = subject != null ? subject.trim() : null;
+    public Line(CharacterInPlay subject, String line) {
+        this.subject = subject;
         this.line = line.trim().replace("\n", " ");
     }
 }

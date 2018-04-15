@@ -1,5 +1,6 @@
 package nl.java.shakespearelang.executor;
 
+import nl.java.shakespearelang.CharacterInPlay;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -56,8 +57,11 @@ public class Wordlist {
         return redundants.contains(word);
     }
 
-    public boolean isCharacter(String word) {
-        return characters.contains(word.toLowerCase());
+    public boolean isCharacter(String character) {
+        return characters.contains(character.toLowerCase());
+    }
+    public boolean isCharacter(CharacterInPlay character) {
+        return isCharacter(character.getName());
     }
 
 }

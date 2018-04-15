@@ -1,5 +1,6 @@
 package nl.java.shakespearelang.executor;
 
+import nl.java.shakespearelang.CharacterInPlay;
 import nl.java.shakespearelang.parser.line.Assignment;
 
 import java.util.ArrayList;
@@ -12,10 +13,10 @@ import static nl.java.shakespearelang.parser.line.TextSimplifiers.*;
 public class AssignmentPerformer {
     private final Integer objectValue;
     private final Assignment line;
-    private final Map<String, Integer> characters;
+    private final Map<CharacterInPlay, Integer> characters;
     private final Wordlist wordlist;
 
-    public AssignmentPerformer(Assignment line, Map<String, Integer> characters, Integer objectValue, Wordlist wordlist) {
+    public AssignmentPerformer(Assignment line, Map<CharacterInPlay, Integer> characters, Integer objectValue, Wordlist wordlist) {
         this.objectValue = objectValue;
         this.line = line;
         this.characters = characters;
@@ -35,7 +36,7 @@ public class AssignmentPerformer {
         for (int i = 0; i < summarizedOperators.size(); i++) {
             if (summarizedOperators.get(i).equals(OperatorType.CHARACTER)) {
                 OperatorType character = (OperatorType) summarizedOperators.get(i);
-                summarizedOperators.set(i, characters.get(character.getName()));
+                summarizedOperators.set(i, characters.get(character.getCharacterInPlay()));
             }
         }
     }
@@ -75,7 +76,7 @@ public class AssignmentPerformer {
             } else if (word.equals(YOURSELF)) {
                 operators.add(OperatorType.OBJECT_VALUE);
             } else if (wordlist.isCharacter(word)) {
-                operators.add(OperatorType.CHARACTER.setName(word));
+                operators.add(OperatorType.CHARACTER.setCharacterInPlay(word));
             } else if (word.equals(THEDIFFERENCEBETWEEN)) {
                 operators.add(OperatorType.SUBTRACT);
             } else if (word.equals(THESUMOF)) {

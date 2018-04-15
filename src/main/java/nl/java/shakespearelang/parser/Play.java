@@ -1,6 +1,7 @@
 package nl.java.shakespearelang.parser;
 
 import lombok.Getter;
+import nl.java.shakespearelang.CharacterInPlay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.Map;
 @Getter
 public class Play {
     private String title;
-    private Map<String, Integer> characters = new HashMap<>();
+    private Map<CharacterInPlay, Integer> characters = new HashMap<>();
     private List<Act> acts = new ArrayList<>();
 
     public Play(String input) {
@@ -50,7 +51,7 @@ public class Play {
             if (!aPersonae.contains(",")) {
                 throw new RuntimeException("Cannot parse program, Character has no description starting with a comma and ending with a dot!");
             }
-            characters.put(aPersonae.substring(0, aPersonae.indexOf(",")).toLowerCase(), 0);
+            characters.put(new CharacterInPlay(aPersonae.substring(0, aPersonae.indexOf(",")).toLowerCase()), 0);
         }
     }
 
