@@ -1,6 +1,7 @@
 package nl.java.shakespearelang.parser;
 
 import lombok.Getter;
+import nl.java.shakespearelang.CharacterInPlay;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
 import nl.java.shakespearelang.parser.line.Enter;
@@ -54,7 +55,7 @@ public class Scene {
     }
 
     private void addLines(String[] titleAndLines) {
-        String currentSubject = "";
+        CharacterInPlay currentSubject = null;
         for (int i = 1; i < titleAndLines.length; i++) {
             String line = titleAndLines[i];
             if (line.contains("enter")) {
@@ -62,7 +63,7 @@ public class Scene {
             } else if (line.contains("exit") || line.contains("exeunt")) {
                 lines.add(new Exit(line));
             } else if (line.contains(":")) {
-                currentSubject = line.substring(0, line.indexOf(":"));
+                currentSubject = new CharacterInPlay(line.substring(0, line.indexOf(":")));
                 addLineHelper(currentSubject, line.substring(line.indexOf(":") + 1).trim());
             } else {
                 addLineHelper(currentSubject, line);
@@ -70,7 +71,7 @@ public class Scene {
         }
     }
 
-    private void addLineHelper(String currentSubject, String line) {
+    private void addLineHelper(CharacterInPlay currentSubject, String line) {
         line = line.trim();
         if (line.equals("listen to your heart")) {
             lines.add(new InputStatement(currentSubject, line));

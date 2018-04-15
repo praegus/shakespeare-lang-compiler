@@ -2,13 +2,13 @@ package nl.java.shakespearelang.executor;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import nl.java.shakespearelang.CharacterInPlay;
 
 @Getter
 @EqualsAndHashCode
 public class OperatorType {
-
     private String type;
-    private String name;
+    private CharacterInPlay characterInPlay;
 
     public static final OperatorType ADD = new OperatorType("ADD");
     public static final OperatorType MULTIPLY = new OperatorType("MULTIPLY");
@@ -30,8 +30,8 @@ public class OperatorType {
         this.type = type;
     }
 
-    public OperatorType setName(String name) {
-        this.name = name;
+    public OperatorType setCharacterInPlay(String characterInPlay) {
+        this.characterInPlay = new CharacterInPlay(characterInPlay);
         return this;
     }
 }

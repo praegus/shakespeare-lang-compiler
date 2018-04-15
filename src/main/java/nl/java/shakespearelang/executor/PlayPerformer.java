@@ -1,6 +1,7 @@
 package nl.java.shakespearelang.executor;
 
 import lombok.extern.slf4j.Slf4j;
+import nl.java.shakespearelang.CharacterInPlay;
 import nl.java.shakespearelang.parser.Act;
 import nl.java.shakespearelang.parser.Play;
 import nl.java.shakespearelang.parser.Scene;
@@ -20,8 +21,8 @@ import java.util.Map;
 public class PlayPerformer {
     private final Play play;
     private Wordlist wordlist;
-    private Map<String, Integer> characters;
-    private List<String> personaeOnStage = new ArrayList<>();
+    private Map<CharacterInPlay, Integer> characters;
+    private List<CharacterInPlay> personaeOnStage = new ArrayList<>();
 
     public PlayPerformer(Play play) throws IOException {
         this.play = play;
@@ -41,8 +42,8 @@ public class PlayPerformer {
         System.out.println();
     }
 
-    private void initializeCharacters(Map<String, Integer> characters) {
-        for (String character : characters.keySet()) {
+    private void initializeCharacters(Map<CharacterInPlay, Integer> characters) {
+        for (CharacterInPlay character : characters.keySet()) {
             if (!wordlist.isCharacter(character)) {
                 throw new RuntimeException("Character " + character + " is not a Shakespeare personae!");
             }
@@ -58,7 +59,7 @@ public class PlayPerformer {
         } else if (line instanceof OutputStatement) {
             performStatement(line, characters.get(getObjectOfLine(line.getSubject())));
         } else if (line instanceof Assignment) {
-            String object = getObjectOfLine(line.getSubject());
+            CharacterInPlay object = getObjectOfLine(line.getSubject());
             AssignmentPerformer assignmentPerformer = new AssignmentPerformer((Assignment) line, characters, characters.get(object), wordlist);
             characters.replace(object, assignmentPerformer.performAssignment());
         } else {
@@ -82,7 +83,7 @@ public class PlayPerformer {
         }
     }
 
-    private String getObjectOfLine(String subject) {
+    private CharacterInPlay getObjectOfLine(CharacterInPlay subject) {
         if (personaeOnStage.size() != 2) {
             throw new RuntimeException("Number of characters on stage is not correct!");
         } else if (!personaeOnStage.contains(subject)) {
