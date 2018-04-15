@@ -42,7 +42,7 @@ public class PlayPerformerTest {
         assertThat(outContent.toString().trim()).isEqualTo("Hello World!");
     }
 
-    //@Ignore // work in progress
+    @Ignore // work in progress
     @Test
     public void prime() throws Exception {
         String theString = readFile("primes.spl");
