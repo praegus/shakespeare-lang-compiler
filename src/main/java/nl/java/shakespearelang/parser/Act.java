@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static nl.java.shakespearelang.parser.RomanToArabicConverter.romanToArabic;
 
@@ -14,22 +16,32 @@ public class Act {
     private int actNumber;
 
     public Act(String actString, int number) {
-        actNumber = number;
-        String[] titleAndScenes = actString.split("scene ");
-        setTitleAndActNumber(titleAndScenes[0].replaceFirst("\\.", "").trim());
+        String[] titleAndScenes = actString.split("(?=scene\\s\\w*:)");
+        this.actNumber = checkActNumber(number, titleAndScenes[0]);
+        this.title = extractTitle(titleAndScenes[0]);
+
         for (int i = 1; i < titleAndScenes.length; i++) {
             scenes.add(new Scene(titleAndScenes[i].trim(), i));
         }
     }
 
-    private void setTitleAndActNumber(String titleRaw) {
-        if (!titleRaw.contains(":")) {
-            throw new RuntimeException("Title of act does not contain an act number with a semicolumn!");
+    private int checkActNumber(int number, String titleRaw) {
+        if(!titleRaw.contains("act ") || !titleRaw.contains(":")){
+            throw new RuntimeException("Title of act does not contain 'act' or a semicolumn!");
         }
-        String romanNumeral = titleRaw.substring(0, titleRaw.indexOf(":"));
-        if (romanToArabic(romanNumeral) != actNumber) {
+        String romanNumeral = titleRaw.substring(0, titleRaw.indexOf(":")).replace("act", "").trim();
+        if (romanToArabic(romanNumeral) != number) {
             throw new RuntimeException("Act numbering is not in sequence!");
         }
-        this.title = titleRaw.substring(titleRaw.indexOf(":")+1).trim();
+        return number;
+    }
+
+    private String extractTitle(String title) {
+        Pattern pattern = Pattern.compile("act\\s\\w.*:(.*?)\\.");
+        Matcher matcher = pattern.matcher(title);
+        if (matcher.find()) {
+            return matcher.group(1).trim();
+        }
+        throw new RuntimeException("Not title in act found!");
     }
 }
