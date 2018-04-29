@@ -6,8 +6,10 @@ import nl.java.shakespearelang.parser.Act;
 import nl.java.shakespearelang.parser.Play;
 import nl.java.shakespearelang.parser.Scene;
 import nl.java.shakespearelang.parser.line.Assignment;
+import nl.java.shakespearelang.parser.line.Conditional;
 import nl.java.shakespearelang.parser.line.Enter;
 import nl.java.shakespearelang.parser.line.Exit;
+import nl.java.shakespearelang.parser.line.InputStatement;
 import nl.java.shakespearelang.parser.line.Line;
 import nl.java.shakespearelang.parser.line.OutputStatement;
 
@@ -30,16 +32,36 @@ public class PlayPerformer {
         initializeCharacters(play.getCharacters());
     }
 
-    public void performPlay() {
-        for (Act act : play.getActs()) {
-            for (Scene scene : act.getScenes()) {
-                for (Line line : scene.getLines()) {
-                    performLine(line);
-                }
+    public void performPlay() throws IOException {
+        ActScene actScene = new ActScene(1, 1);
+
+        while (!actScene.isExeunt()) {
+            actScene = performScene(actScene);
+        }
+    }
+
+    private ActScene performScene(ActScene actScene) throws IOException {
+        ActScene newActScene;
+
+        Scene scene = play.getAct(actScene.getAct()).getScene(actScene.getScene());
+        for (Line line : scene.getLines()) {
+            newActScene = performLine(line);
+            if (newActScene != null) {
+                return newActScene;
             }
         }
-        System.out.println();
-        System.out.println();
+
+        return findNextScene(actScene);
+    }
+
+    private ActScene findNextScene(ActScene actScene) {
+        if (play.getAct(actScene.getAct()).getNumberOfScenes() > actScene.getScene()) {
+            return new ActScene(actScene.getAct(), actScene.getScene() + 1);
+        } else if (play.getNumberOfActs() > actScene.getAct()) {
+            return new ActScene(actScene.getAct() + 1, 1);
+        } else {
+            return new ActScene();
+        }
     }
 
     private void initializeCharacters(Map<CharacterInPlay, Integer> characters) {
@@ -51,7 +73,7 @@ public class PlayPerformer {
         this.characters = characters;
     }
 
-    private void performLine(Line line) {
+    private ActScene performLine(Line line) throws IOException {
         if (line instanceof Enter) {
             personaeOnStage.addAll(((Enter) line).getCharacters());
         } else if (line instanceof Exit) {
@@ -62,9 +84,16 @@ public class PlayPerformer {
             CharacterInPlay object = getObjectOfLine(line.getSubject());
             AssignmentPerformer assignmentPerformer = new AssignmentPerformer((Assignment) line, characters, characters.get(object), wordlist);
             characters.replace(object, assignmentPerformer.performAssignment());
+        } else if (line instanceof InputStatement) {
+            CharacterInPlay object = getObjectOfLine(line.getSubject());
+            InputStatementPerformer inputStatementPerformer = new InputStatementPerformer((InputStatement) line);
+            characters.replace(object, inputStatementPerformer.performInputStatement());
+        } else if (line instanceof Conditional) {
+            ;
         } else {
             throw new RuntimeException("unknown line type: " + line.getClass().getSimpleName());
         }
+        return null;
     }
 
     private void exitPersonae(Exit line) {
