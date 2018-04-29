@@ -2,9 +2,7 @@ package nl.java.shakespearelang.executor;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.java.shakespearelang.CharacterInPlay;
-import nl.java.shakespearelang.parser.Act;
 import nl.java.shakespearelang.parser.Play;
-import nl.java.shakespearelang.parser.Scene;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
 import nl.java.shakespearelang.parser.line.Enter;
@@ -33,34 +31,36 @@ public class PlayPerformer {
     }
 
     public void performPlay() throws IOException {
-        ActScene actScene = new ActScene(1, 1);
+        ActSceneLine actSceneLine = new ActSceneLine(1, 1, 1);
 
-        while (!actScene.isExeunt()) {
-            actScene = performScene(actScene);
+        while (!actSceneLine.isExeunt()) {
+            actSceneLine = performLine(actSceneLine);
         }
     }
 
-    private ActScene performScene(ActScene actScene) throws IOException {
-        ActScene newActScene;
+//    private ActSceneLine performScene(ActSceneLine actSceneLine) throws IOException {
+//        ActSceneLine newActSceneLine;
+//
+//        Scene scene = play.getAct(actSceneLine.getAct()).getScene(actSceneLine.getScene());
+//        for (Line line : scene.getLines()) {
+//            newActSceneLine = performLine(line);
+//            if (newActSceneLine != null) {
+//                return newActSceneLine;
+//            }
+//        }
+//
+//        return findNextLine(actSceneLine);
+//    }
 
-        Scene scene = play.getAct(actScene.getAct()).getScene(actScene.getScene());
-        for (Line line : scene.getLines()) {
-            newActScene = performLine(line);
-            if (newActScene != null) {
-                return newActScene;
-            }
-        }
-
-        return findNextScene(actScene);
-    }
-
-    private ActScene findNextScene(ActScene actScene) {
-        if (play.getAct(actScene.getAct()).getNumberOfScenes() > actScene.getScene()) {
-            return new ActScene(actScene.getAct(), actScene.getScene() + 1);
-        } else if (play.getNumberOfActs() > actScene.getAct()) {
-            return new ActScene(actScene.getAct() + 1, 1);
+    private ActSceneLine findNextLine(ActSceneLine actSceneLine) {
+        if ((play.getAct(actSceneLine.getAct()).getScene(actSceneLine.getScene()).getNumberOflines()) > actSceneLine.getLine()) {
+            return ActSceneLine.next(actSceneLine);
+        } else if (play.getAct(actSceneLine.getAct()).getNumberOfScenes() > actSceneLine.getScene()) {
+            return new ActSceneLine(actSceneLine.getAct(), actSceneLine.getScene() + 1, 1);
+        } else if (play.getNumberOfActs() > actSceneLine.getAct()) {
+            return new ActSceneLine(actSceneLine.getAct() + 1, 1, 1);
         } else {
-            return new ActScene();
+            return new ActSceneLine();
         }
     }
 
@@ -73,7 +73,8 @@ public class PlayPerformer {
         this.characters = characters;
     }
 
-    private ActScene performLine(Line line) throws IOException {
+    private ActSceneLine performLine(ActSceneLine actSceneLine) throws IOException {
+        Line line = play.getAct(actSceneLine.getAct()).getScene(actSceneLine.getScene()).getLine(actSceneLine.getLine());
         if (line instanceof Enter) {
             personaeOnStage.addAll(((Enter) line).getCharacters());
         } else if (line instanceof Exit) {
@@ -89,11 +90,12 @@ public class PlayPerformer {
             InputStatementPerformer inputStatementPerformer = new InputStatementPerformer((InputStatement) line);
             characters.replace(object, inputStatementPerformer.performInputStatement());
         } else if (line instanceof Conditional) {
-            ;
+            ConditionalPerformer conditionalPerformer = new ConditionalPerformer((Conditional) line, characters);
+            conditionalPerformer.performConditional();
         } else {
             throw new RuntimeException("unknown line type: " + line.getClass().getSimpleName());
         }
-        return null;
+        return findNextLine(actSceneLine);
     }
 
     private void exitPersonae(Exit line) {

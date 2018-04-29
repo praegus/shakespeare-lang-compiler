@@ -34,6 +34,10 @@ public class Scene {
         addLines(titleAndLines);
     }
 
+    public Line getLine(int line){
+        return lines.get(line-1);
+    }
+
     private int checkSceneNumber(int number, String titleRaw) {
         if(!titleRaw.contains("scene ") || !titleRaw.contains(":")){
             throw new RuntimeException("Title of scene does not contain 'scene' or a semicolumn!");
@@ -96,5 +100,9 @@ public class Scene {
         } else {
             throw new RuntimeException("type of line is unclear!");
         }
+    }
+
+    public int getNumberOflines() {
+        return lines.size();
     }
 }
