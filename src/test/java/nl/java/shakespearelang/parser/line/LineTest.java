@@ -9,39 +9,39 @@ public class LineTest {
 
     @Test
     public void create_assignment_with_the_difference_between() {
-        Assignment line = new Assignment(new CharacterInPlay("romeo"), "difference between");
+        Assignment line = new Assignment(new CharacterInPlay("romeo"), "the difference between");
         assertThat(line.getWords()).containsExactly("THEDIFFERENCEBETWEEN");
         assertThat(line.getSubject()).isEqualTo(new CharacterInPlay("romeo"));
-        assertThat(line.getLine()).isEqualTo("difference between");
+        assertThat(line.getLine()).isEqualTo("the difference between");
     }
 
     @Test
     public void create_assignment_with_sum_of() {
-        Assignment line = new Assignment(new CharacterInPlay("romeo"), "sum of");
+        Assignment line = new Assignment(new CharacterInPlay("romeo"), "the sum of");
         assertThat(line.getWords()).containsExactly("THESUMOF");
     }
 
     @Test
     public void create_assignment_with_product_of() {
-        Assignment line = new Assignment(new CharacterInPlay("romeo"), "product of");
+        Assignment line = new Assignment(new CharacterInPlay("romeo"), "the product of");
         assertThat(line.getWords()).containsExactly("THEPRODUCTOF");
     }
 
     @Test
     public void create_assignment_with_square_of() {
-        Assignment line = new Assignment(new CharacterInPlay("romeo"), "square of");
+        Assignment line = new Assignment(new CharacterInPlay("romeo"), "the square of");
         assertThat(line.getWords()).containsExactly("THESQUAREOF");
     }
 
     @Test
     public void create_assignment_with_quotient_of() {
-        Assignment line = new Assignment(new CharacterInPlay("romeo"), "quotient between");
+        Assignment line = new Assignment(new CharacterInPlay("romeo"), "the quotient between");
         assertThat(line.getWords()).containsExactly("THEQUOTIENTBETWEEN");
     }
 
     @Test
     public void create_assignment_with_cube_of() {
-        Assignment line = new Assignment(new CharacterInPlay("romeo"), "cube of");
+        Assignment line = new Assignment(new CharacterInPlay("romeo"), "the cube of");
         assertThat(line.getWords()).containsExactly("THECUBEOF");
     }
 

@@ -14,12 +14,12 @@ public class Assignment extends Line {
     public Assignment(CharacterInPlay subject, String line) {
         super(subject, line);
         line = line.toLowerCase();
-        line = line.replaceAll("difference between", THEDIFFERENCEBETWEEN);
-        line = line.replaceAll("sum of", THESUMOF);
-        line = line.replaceAll("product of", THEPRODUCTOF);
-        line = line.replaceAll("square of", THESQUAREOF);
-        line = line.replaceAll("quotient between", THEQUOTIENTBETWEEN);
-        line = line.replaceAll("cube of", THECUBEOF);
+        line = line.replaceAll("the difference between", THEDIFFERENCEBETWEEN);
+        line = line.replaceAll("the sum of", THESUMOF);
+        line = line.replaceAll("the product of", THEPRODUCTOF);
+        line = line.replaceAll("the square of", THESQUAREOF);
+        line = line.replaceAll("the quotient between", THEQUOTIENTBETWEEN);
+        line = line.replaceAll("the cube of", THECUBEOF);
         line = line.replaceAll("twice", TWICE);
 
 
