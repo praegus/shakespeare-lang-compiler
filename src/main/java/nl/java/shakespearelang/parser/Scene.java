@@ -99,11 +99,9 @@ public class Scene {
             lines.add(new Goto(currentSubject, line, false));
         } else if (line.startsWith("remember")) {
             lines.add(new Push(currentSubject, line));
-        } else if(line.startsWith("recall")) {
+        } else if (line.startsWith("recall")) {
             lines.add(new Pop(currentSubject, line));
-        }
-
-        else {
+        } else {
             throw new RuntimeException("type of line is unclear!");
         }
     }
