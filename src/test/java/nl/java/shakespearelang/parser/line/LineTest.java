@@ -62,11 +62,25 @@ public class LineTest {
         Assignment line = new Assignment(new CharacterInPlay("romeo"), "thyself");
         assertThat(line.getWords()).containsExactly("yourself");
     }
-    
+
     @Test
-    public void create_goto_scene_no_condition() {
+    public void create_goto_scene_with_condition() {
         Goto gotoStatement = new Goto(new CharacterInPlay("romeo"), "If so, let us proceed to scene V", true);
         assertThat(gotoStatement.getRequestedScene()).isEqualTo(5);
-        assertThat(gotoStatement.isConditionBased()).isTrue();
+        assertThat(gotoStatement.conditionApplies(true)).isTrue();
+    }
+
+    @Test
+    public void create_goto_with_false_condition() {
+        Goto gotoStatement = new Goto(new CharacterInPlay("romeo"), "If so, let us proceed to scene V", false);
+        assertThat(gotoStatement.getRequestedScene()).isEqualTo(5);
+        assertThat(gotoStatement.conditionApplies(true)).isFalse();
+    }
+
+    @Test
+    public void create_goto_scene_no_condition() {
+        Goto gotoStatement = new Goto(new CharacterInPlay("romeo"), "If so, let us proceed to scene V", null);
+        assertThat(gotoStatement.getRequestedScene()).isEqualTo(5);
+        assertThat(gotoStatement.conditionApplies(true)).isTrue();
     }
 }

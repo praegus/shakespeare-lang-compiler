@@ -24,10 +24,6 @@ public class ConditionalPerformer {
         int secondValue = decideLastParameter();
         Comparator comparator = decideComparator();
 
-        if (conditional.getLine().contains(" not ")) {
-            throw new RuntimeException("implement me!");
-        }
-
         if (comparator.equals(Comparator.GREATER_THAN)) {
             return firstvalue > secondValue;
         } else if (comparator.equals(Comparator.SMALLER_THAN)) {

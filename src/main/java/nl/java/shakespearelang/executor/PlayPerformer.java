@@ -79,10 +79,10 @@ public class PlayPerformer {
             ConditionalPerformer conditionalPerformer = new ConditionalPerformer((Conditional) line, characters, object, wordlist);
             condition = conditionalPerformer.performConditional();
         } else if (line instanceof Goto) {
-        	Goto gotoStatement = ((Goto) line);
-        	if (!gotoStatement.isConditionBased() || condition) {
-        		return new ActSceneLine(actSceneLine.getAct(), gotoStatement.getRequestedScene() , 1);
-        	}
+            Goto gotoStatement = ((Goto) line);
+            if (gotoStatement.conditionApplies(condition)) {
+                return new ActSceneLine(actSceneLine.getAct(), gotoStatement.getRequestedScene(), 1);
+            }
         } else {
             throw new RuntimeException("unknown line type: " + line.getClass().getSimpleName());
         }
