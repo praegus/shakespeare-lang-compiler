@@ -2,12 +2,12 @@ package nl.java.shakespearelang.executor;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.java.shakespearelang.CharacterInPlay;
-import nl.java.shakespearelang.parser.Act;
 import nl.java.shakespearelang.parser.Play;
-import nl.java.shakespearelang.parser.Scene;
 import nl.java.shakespearelang.parser.line.Assignment;
+import nl.java.shakespearelang.parser.line.Conditional;
 import nl.java.shakespearelang.parser.line.Enter;
 import nl.java.shakespearelang.parser.line.Exit;
+import nl.java.shakespearelang.parser.line.InputStatement;
 import nl.java.shakespearelang.parser.line.Line;
 import nl.java.shakespearelang.parser.line.OutputStatement;
 
@@ -30,28 +30,37 @@ public class PlayPerformer {
         initializeCharacters(play.getCharacters());
     }
 
-    public void performPlay() {
-        for (Act act : play.getActs()) {
-            for (Scene scene : act.getScenes()) {
-                for (Line line : scene.getLines()) {
-                    performLine(line);
-                }
-            }
+    public void performPlay() throws IOException {
+        ActSceneLine actSceneLine = new ActSceneLine(1, 1, 1);
+
+        while (!actSceneLine.isExeunt()) {
+            actSceneLine = performLine(actSceneLine);
         }
-        System.out.println();
-        System.out.println();
+    }
+
+    private ActSceneLine findNextLine(ActSceneLine actSceneLine) {
+        if ((play.getAct(actSceneLine.getAct()).getScene(actSceneLine.getScene()).getNumberOflines()) > actSceneLine.getLine()) {
+            return ActSceneLine.next(actSceneLine);
+        } else if (play.getAct(actSceneLine.getAct()).getNumberOfScenes() > actSceneLine.getScene()) {
+            return new ActSceneLine(actSceneLine.getAct(), actSceneLine.getScene() + 1, 1);
+        } else if (play.getNumberOfActs() > actSceneLine.getAct()) {
+            return new ActSceneLine(actSceneLine.getAct() + 1, 1, 1);
+        } else {
+            return new ActSceneLine();
+        }
     }
 
     private void initializeCharacters(Map<CharacterInPlay, Integer> characters) {
         for (CharacterInPlay character : characters.keySet()) {
             if (!wordlist.isCharacter(character)) {
-                throw new RuntimeException("Character " + character + " is not a Shakespeare personae!");
+                throw new RuntimeException("Character " + character.getName() + " is not a Shakespeare personae!");
             }
         }
         this.characters = characters;
     }
 
-    private void performLine(Line line) {
+    private ActSceneLine performLine(ActSceneLine actSceneLine) throws IOException {
+        Line line = play.getAct(actSceneLine.getAct()).getScene(actSceneLine.getScene()).getLine(actSceneLine.getLine());
         if (line instanceof Enter) {
             personaeOnStage.addAll(((Enter) line).getCharacters());
         } else if (line instanceof Exit) {
@@ -62,9 +71,17 @@ public class PlayPerformer {
             CharacterInPlay object = getObjectOfLine(line.getSubject());
             AssignmentPerformer assignmentPerformer = new AssignmentPerformer((Assignment) line, characters, characters.get(object), wordlist);
             characters.replace(object, assignmentPerformer.performAssignment());
+        } else if (line instanceof InputStatement) {
+            CharacterInPlay object = getObjectOfLine(line.getSubject());
+            InputStatementPerformer inputStatementPerformer = new InputStatementPerformer((InputStatement) line);
+            characters.replace(object, inputStatementPerformer.performInputStatement());
+        } else if (line instanceof Conditional) {
+            ConditionalPerformer conditionalPerformer = new ConditionalPerformer((Conditional) line, characters);
+            conditionalPerformer.performConditional();
         } else {
             throw new RuntimeException("unknown line type: " + line.getClass().getSimpleName());
         }
+        return findNextLine(actSceneLine);
     }
 
     private void exitPersonae(Exit line) {
@@ -96,5 +113,4 @@ public class PlayPerformer {
             return personaeOnStage.get(0);
         }
     }
-
 }
