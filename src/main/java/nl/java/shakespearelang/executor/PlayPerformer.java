@@ -7,6 +7,7 @@ import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
 import nl.java.shakespearelang.parser.line.Enter;
 import nl.java.shakespearelang.parser.line.Exit;
+import nl.java.shakespearelang.parser.line.Goto;
 import nl.java.shakespearelang.parser.line.InputStatement;
 import nl.java.shakespearelang.parser.line.Line;
 import nl.java.shakespearelang.parser.line.OutputStatement;
@@ -23,6 +24,7 @@ public class PlayPerformer {
     private Wordlist wordlist;
     private Map<CharacterInPlay, Integer> characters;
     private List<CharacterInPlay> personaeOnStage = new ArrayList<>();
+    private boolean conditionalResult = true;
 
     public PlayPerformer(Play play) throws IOException {
         this.play = play;
@@ -78,6 +80,11 @@ public class PlayPerformer {
         } else if (line instanceof Conditional) {
             ConditionalPerformer conditionalPerformer = new ConditionalPerformer((Conditional) line, characters);
             conditionalPerformer.performConditional();
+        } else if (line instanceof Goto) {
+        	Goto gotoStatement = ((Goto) line);
+        	if (!gotoStatement.isConditionBased() || conditionalResult) {
+        		return new ActSceneLine(actSceneLine.getAct(), gotoStatement.getRequestedScene() , 1);
+        	}
         } else {
             throw new RuntimeException("unknown line type: " + line.getClass().getSimpleName());
         }

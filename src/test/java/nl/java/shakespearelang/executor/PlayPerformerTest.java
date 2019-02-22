@@ -43,7 +43,6 @@ public class PlayPerformerTest {
         assertThat(outContent.toString().trim()).isEqualTo("Hello World!");
     }
 
-    @Ignore // work in progress
     @Test
     public void prime() throws Exception {
         ByteArrayInputStream in = new ByteArrayInputStream("10".getBytes());

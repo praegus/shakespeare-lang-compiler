@@ -94,9 +94,9 @@ public class Scene {
         } else if (line.startsWith("is the")) {
             lines.add(new Conditional(currentSubject, line));
         } else if (line.startsWith("if so")) {
-            lines.add(new Goto(currentSubject, line));
+            lines.add(new Goto(currentSubject, line, true));
         } else if (line.startsWith("let us")) {
-            lines.add(new Goto(currentSubject, line));
+            lines.add(new Goto(currentSubject, line, false));
         } else {
             throw new RuntimeException("type of line is unclear!");
         }
