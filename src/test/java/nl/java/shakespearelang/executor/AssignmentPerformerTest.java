@@ -75,4 +75,28 @@ public class AssignmentPerformerTest {
         int result = assignmentPerformer.performAssignment();
         assertThat(result).isEqualTo(1);
     }
+
+    @Test
+    public void square_root() {
+        Assignment assignment = new Assignment(new CharacterInPlay("hamlet"), "you are as villainous as the square root of romeo");
+
+        Map<CharacterInPlay, Integer> characters = new HashMap<>();
+        characters.put(new CharacterInPlay("romeo"), 9);
+
+        AssignmentPerformer assignmentPerformer = new AssignmentPerformer(assignment, characters, 3, wordlist);
+
+        int result = assignmentPerformer.performAssignment();
+        assertThat(result).isEqualTo(3);
+    }
+
+    @Test
+    public void nothing(){
+        Assignment assignment = new Assignment(new CharacterInPlay("hamlet"), "thou art as rotten as the difference between nothing and the sum of a snotty stinking half-witted hog and a small toad");
+
+        AssignmentPerformer assignmentPerformer = new AssignmentPerformer(assignment, null, 3, wordlist);
+
+        int result = assignmentPerformer.performAssignment();
+        assertThat(result).isEqualTo(10);
+
+    }
 }

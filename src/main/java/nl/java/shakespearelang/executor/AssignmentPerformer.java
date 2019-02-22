@@ -29,7 +29,16 @@ public class AssignmentPerformer {
         List<Object> summarizedOperators = summarizeOperators(operators);
         replaceSubjectAndObjectWithValue(summarizedOperators);
         replaceCharacterWithValue(summarizedOperators);
+        replaceNothingWithZero(summarizedOperators);
         return executeOperations(summarizedOperators);
+    }
+
+    private void replaceNothingWithZero(List<Object> summarizedOperators) {
+        for (int i = 0; i < summarizedOperators.size(); i++) {
+            if (summarizedOperators.get(i).equals(OperatorType.NOTHING)) {
+                summarizedOperators.set(i, 0);
+            }
+        }
     }
 
     private void replaceCharacterWithValue(List<Object> summarizedOperators) {
@@ -90,6 +99,8 @@ public class AssignmentPerformer {
                 operators.add(OperatorType.MULTIPLY);
             } else if (word.equals(THESQUAREOF)) {
                 operators.add(OperatorType.SQUARE);
+            } else if (word.equals(THESQUAREROOT)) {
+                operators.add(OperatorType.SQUARE_ROOT);
             } else if (word.equals(THEQUOTIENTBETWEEN)) {
                 operators.add(OperatorType.DIVIDE);
             } else if (word.equals(THEREMAINDEROFTHEQUOTIENT)) {
@@ -98,6 +109,8 @@ public class AssignmentPerformer {
                 operators.add(OperatorType.CUBE);
             } else if (word.equals(TWICE)) {
                 operators.add(OperatorType.TWICE);
+            } else if (word.equals(NOTHING)) {
+                operators.add(OperatorType.NOTHING);
             } else {
                 throw new RuntimeException("The word '" + word + "' is unknown!");
             }
@@ -130,6 +143,8 @@ public class AssignmentPerformer {
             if (objects.get(i) instanceof OperatorType) {
                 if (objects.get(i).equals(OperatorType.SQUARE)) {
                     objects.set(i, (int) Math.pow((Integer) objects.get(i + 1), 2));
+                } else if (objects.get(i).equals(OperatorType.SQUARE_ROOT)) {
+                    objects.set(i, (int) Math.sqrt((Integer) objects.get(i + 1)));
                 } else if (objects.get(i).equals(OperatorType.CUBE)) {
                     objects.set(i, (int) Math.pow((Integer) objects.get(i + 1), 3));
                 } else if (objects.get(i).equals(OperatorType.ADD)) {

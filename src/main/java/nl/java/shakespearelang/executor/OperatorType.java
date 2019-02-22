@@ -7,6 +7,7 @@ import nl.java.shakespearelang.CharacterInPlay;
 @Getter
 @EqualsAndHashCode
 public class OperatorType {
+    public static final OperatorType NOTHING = new OperatorType("NOTHING");
     private String type;
     private CharacterInPlay characterInPlay;
 
@@ -15,6 +16,7 @@ public class OperatorType {
     public static final OperatorType SUBTRACT = new OperatorType("SUBTRACT");
     public static final OperatorType DIVIDE = new OperatorType("DIVIDE");
     public static final OperatorType SQUARE = new OperatorType("SQUARE");
+    public static final OperatorType SQUARE_ROOT = new OperatorType("SQUARE_ROOT");
     public static final OperatorType QUOTIENT = new OperatorType("QUOTIENT");
     public static final OperatorType CUBE = new OperatorType("CUBE");
     public static final OperatorType TWICE = new OperatorType("TWICE");
