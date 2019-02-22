@@ -20,20 +20,27 @@ public class ConditionalPerformer {
     }
 
     public boolean performConditional() {
-        int secondValue = decideLastParameter();
         int firstvalue = decideFirstParameter();
+        int secondValue = decideLastParameter();
         Comparator comparator = decideComparator();
 
         if (comparator.equals(Comparator.GREATER_THAN)) {
             return firstvalue > secondValue;
         } else if (comparator.equals(Comparator.SMALLER_THAN)) {
             return firstvalue < secondValue;
+        } else if (comparator.equals(Comparator.EQUALS)) {
+            return firstvalue == secondValue;
         } else {
             throw new RuntimeException("not implemented");
         }
     }
 
     private Comparator decideComparator() {
+
+        if (conditional.getLine().contains("as")) {
+            return Comparator.EQUALS;
+        }
+
         if (wordlist.getPositiveComparatives().stream().anyMatch(e -> conditional.getLine().contains(e))) {
             return Comparator.GREATER_THAN;
         }
@@ -43,6 +50,7 @@ public class ConditionalPerformer {
         if (wordlist.getNegativeComparatives().stream().anyMatch(e -> conditional.getLine().contains(e))) {
             return Comparator.SMALLER_THAN;
         }
+
         if (wordlist.getNegativeAdjectives().stream().anyMatch(e -> conditional.getLine().contains(e))) {
             return Comparator.SMALLER_THAN;
         }
@@ -92,7 +100,8 @@ public class ConditionalPerformer {
 
     enum Comparator {
         GREATER_THAN,
-        SMALLER_THAN
+        SMALLER_THAN,
+        EQUALS
     }
 
     private int computeValue(String line) {
