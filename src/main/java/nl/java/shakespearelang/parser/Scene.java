@@ -93,10 +93,12 @@ public class Scene {
             lines.add(new Conditional(currentSubject, line));
         } else if (line.startsWith("is the")) {
             lines.add(new Conditional(currentSubject, line));
+        } else if (line.startsWith("if not")) {
+            lines.add(new Goto(currentSubject, line, false));
         } else if (line.startsWith("if")) {
             lines.add(new Goto(currentSubject, line, true));
         } else if (line.startsWith("let us")) {
-            lines.add(new Goto(currentSubject, line, false));
+            lines.add(new Goto(currentSubject, line, null));
         } else if (line.startsWith("remember")) {
             lines.add(new Push(currentSubject, line));
         } else if (line.startsWith("recall")) {

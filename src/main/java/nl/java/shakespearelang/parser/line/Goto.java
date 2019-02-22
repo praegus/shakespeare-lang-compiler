@@ -7,13 +7,17 @@ import nl.java.shakespearelang.CharacterInPlay;
 
 @Getter
 public class Goto extends Line {
-	private boolean conditionBased;
-	private int requestedScene;
-	
-    public Goto(CharacterInPlay subject, String line, boolean conditionBased) {
+    private int requestedScene;
+    private Boolean expectedvalue;
+
+    public Goto(CharacterInPlay subject, String line, Boolean expectedValue) {
         super(subject, line);
-        this.conditionBased = conditionBased;
+        this.expectedvalue = expectedValue;
         String romanNumeral = line.split("to scene")[1].trim();
         requestedScene = romanToArabic(romanNumeral);
+    }
+
+    public boolean conditionApplies(boolean condition) {
+        return expectedvalue == null || expectedvalue == condition;
     }
 }
