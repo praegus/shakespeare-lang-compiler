@@ -38,20 +38,6 @@ public class PlayPerformer {
         }
     }
 
-//    private ActSceneLine performScene(ActSceneLine actSceneLine) throws IOException {
-//        ActSceneLine newActSceneLine;
-//
-//        Scene scene = play.getAct(actSceneLine.getAct()).getScene(actSceneLine.getScene());
-//        for (Line line : scene.getLines()) {
-//            newActSceneLine = performLine(line);
-//            if (newActSceneLine != null) {
-//                return newActSceneLine;
-//            }
-//        }
-//
-//        return findNextLine(actSceneLine);
-//    }
-
     private ActSceneLine findNextLine(ActSceneLine actSceneLine) {
         if ((play.getAct(actSceneLine.getAct()).getScene(actSceneLine.getScene()).getNumberOflines()) > actSceneLine.getLine()) {
             return ActSceneLine.next(actSceneLine);
@@ -127,5 +113,4 @@ public class PlayPerformer {
             return personaeOnStage.get(0);
         }
     }
-
 }
