@@ -34,12 +34,12 @@ public class Scene {
         addLines(titleAndLines);
     }
 
-    public Line getLine(int line){
-        return lines.get(line-1);
+    public Line getLine(int line) {
+        return lines.get(line - 1);
     }
 
     private int checkSceneNumber(int number, String titleRaw) {
-        if(!titleRaw.contains("scene ") || !titleRaw.contains(":")){
+        if (!titleRaw.contains("scene ") || !titleRaw.contains(":")) {
             throw new RuntimeException("Title of scene does not contain 'scene' or a semicolumn!");
         }
         String romanNumeral = titleRaw.substring(0, titleRaw.indexOf(":")).replace("scene", "").trim();
@@ -77,7 +77,7 @@ public class Scene {
 
     private void addLineHelper(CharacterInPlay currentSubject, String line) {
         line = line.trim();
-        if (line.equals("listen to your heart")) {
+        if (line.equals("listen to your heart") || line.equals("open your mind")) {
             lines.add(new InputStatement(currentSubject, line));
         } else if (line.equals("speak your mind") || line.equals("speak thy mind")) {
             lines.add(new OutputStatement(currentSubject, line, false));
@@ -87,17 +87,23 @@ public class Scene {
             lines.add(new Assignment(currentSubject, line));
         } else if (line.startsWith("thou")) {
             lines.add(new Assignment(currentSubject, line));
-        } else if (line.startsWith("art thou")) {
+        } else if (line.startsWith("art thou") || line.startsWith("are you")) {
             lines.add(new Conditional(currentSubject, line));
         } else if (line.startsWith("am i")) {
             lines.add(new Conditional(currentSubject, line));
         } else if (line.startsWith("is the")) {
             lines.add(new Conditional(currentSubject, line));
-        } else if (line.startsWith("if so")) {
+        } else if (line.startsWith("if")) {
             lines.add(new Goto(currentSubject, line, true));
         } else if (line.startsWith("let us")) {
             lines.add(new Goto(currentSubject, line, false));
-        } else {
+        } else if (line.startsWith("remember")) {
+            lines.add(new Push(currentSubject, line));
+        } else if(line.startsWith("recall")) {
+            lines.add(new Pop(currentSubject, line));
+        }
+
+        else {
             throw new RuntimeException("type of line is unclear!");
         }
     }

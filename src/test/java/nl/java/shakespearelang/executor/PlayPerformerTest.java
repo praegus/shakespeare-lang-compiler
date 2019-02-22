@@ -62,6 +62,17 @@ public class PlayPerformerTest {
                 "7");
     }
 
+    @Ignore // todo fix me!
+    @Test
+    public void reverse() throws Exception {
+        String program = readFile("reverse.spl");
+
+        Play play = new Play(program);
+
+        PlayPerformer playPerformer = new PlayPerformer(play);
+        playPerformer.performPlay();
+    }
+
 
     private String readFile(String filename) throws IOException {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
