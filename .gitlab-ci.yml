@@ -1,0 +1,50 @@
+stages:
+  - build
+  - sonar
+  - release
+
+variables:
+  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+  MAVEN_CLI_OPTS: "--batch-mode"
+
+cache:
+  key: one-key-to-rule-them-all
+  paths:
+    - .m2/repository
+
+build:
+  stage: build
+  script: mvn $MAVEN_CLI_OPTS test
+  image: "maven:3.6.0-jdk-8-alpine"
+  tags:
+    - mvn
+  artifacts:
+    name: "shakespeare-lang-compiler"
+    expire_in: 1 week
+    paths:
+      - target/*
+  except:
+    - master
+
+sonar:
+  stage: sonar
+  script: mvn sonar:sonar -Dsonar.projectKey=shakespeare-lang-compiler -Dsonar.host.url=$SONAR_ENDPOINT -Dsonar.login=$SONAR_LOGIN
+  image: "maven:3.6.0-jdk-8-alpine"
+  tags:
+    - mvn
+  except:
+    - master
+
+release:
+  stage: release
+  script:
+    - mvn $MAVEN_CLI_OPTS package -DskipTests
+  image: "maven:3.6.0-jdk-8-alpine"
+  artifacts:
+    name: "shakespeare-lang-compiler"
+    paths:
+      - target/*.jar
+  only:
+    - master
+  tags:
+    - mvn
