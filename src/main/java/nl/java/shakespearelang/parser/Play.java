@@ -25,6 +25,18 @@ public class Play {
         extractActs(simplifiedInput);
     }
 
+    public Act getAct(int actNumber){
+        if(acts.get(actNumber-1).getActNumber()==actNumber){
+            return acts.get(actNumber-1);
+        } else {
+            throw new RuntimeException("Act numbering is not in order!");
+        }
+    }
+
+    public int getNumberOfActs(){
+        return acts.size();
+    }
+
     private String simplifyInput(String _input) {
         String input = _input;
         input = input.toLowerCase();

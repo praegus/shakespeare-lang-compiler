@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,9 +33,9 @@ public class PlayPerformerTest {
 
     @Test
     public void helloWorld() throws Exception {
-        String theString = readFile("hello.spl");
+        String program = readFile("hello.spl");
 
-        Play play = new Play(theString);
+        Play play = new Play(program);
 
         PlayPerformer playPerformer = new PlayPerformer(play);
         playPerformer.performPlay();
@@ -45,9 +46,12 @@ public class PlayPerformerTest {
     @Ignore // work in progress
     @Test
     public void prime() throws Exception {
-        String theString = readFile("primes.spl");
+        ByteArrayInputStream in = new ByteArrayInputStream("10".getBytes());
+        System.setIn(in);
 
-        Play play = new Play(theString);
+        String program = readFile("primes.spl");
+
+        Play play = new Play(program);
 
         PlayPerformer playPerformer = new PlayPerformer(play);
         playPerformer.performPlay();
