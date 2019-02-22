@@ -8,7 +8,9 @@ public class TextSimplifiers {
     public static final String THEQUOTIENTBETWEEN = "THEQUOTIENTBETWEEN";
     public static final String THECUBEOF = "THECUBEOF";
     public static final String TWICE = "TWICE";
+    public static final String THEREMAINDEROFTHEQUOTIENT = "THEREMAINDEROFTHEQUOTIENT";
 
     public static final String AND = "and";
     public static final String YOURSELF = "yourself";
+    public static final String ME = "ME";
 }

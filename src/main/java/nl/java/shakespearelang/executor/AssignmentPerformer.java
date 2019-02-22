@@ -27,7 +27,7 @@ public class AssignmentPerformer {
         List<String> words = removeAssignmentOperator(new ArrayList<>(Arrays.asList(line.getWords())), line.getLine());
         List<OperatorType> operators = setOperators(words, wordlist);
         List<Object> summarizedOperators = summarizeOperators(operators);
-        replaceObjectWithValue(summarizedOperators);
+        replaceSubjectAndObjectWithValue(summarizedOperators);
         replaceCharacterWithValue(summarizedOperators);
         return executeOperations(summarizedOperators);
     }
@@ -41,10 +41,13 @@ public class AssignmentPerformer {
         }
     }
 
-    private void replaceObjectWithValue(List<Object> summarizedOperators) {
+    private void replaceSubjectAndObjectWithValue(List<Object> summarizedOperators) {
         for (int i = 0; i < summarizedOperators.size(); i++) {
             if (summarizedOperators.get(i).equals(OperatorType.OBJECT_VALUE)) {
                 summarizedOperators.set(i, objectValue);
+            }
+            if (summarizedOperators.get(i).equals(OperatorType.SUBJECT_VALUE)) {
+                summarizedOperators.set(i, characters.get(line.getSubject()));
             }
         }
     }
@@ -75,6 +78,8 @@ public class AssignmentPerformer {
                 // do nothing operators.add(OperatorType.AND);
             } else if (word.equals(YOURSELF)) {
                 operators.add(OperatorType.OBJECT_VALUE);
+            } else if (word.equals(ME)) {
+                operators.add(OperatorType.SUBJECT_VALUE);
             } else if (wordlist.isCharacter(word)) {
                 operators.add(OperatorType.CHARACTER.setCharacterInPlay(word));
             } else if (word.equals(THEDIFFERENCEBETWEEN)) {
@@ -87,6 +92,8 @@ public class AssignmentPerformer {
                 operators.add(OperatorType.SQUARE);
             } else if (word.equals(THEQUOTIENTBETWEEN)) {
                 operators.add(OperatorType.DIVIDE);
+            } else if (word.equals(THEREMAINDEROFTHEQUOTIENT)) {
+                operators.add(OperatorType.MODULO);
             } else if (word.equals(THECUBEOF)) {
                 operators.add(OperatorType.CUBE);
             } else if (word.equals(TWICE)) {
@@ -139,6 +146,9 @@ public class AssignmentPerformer {
                     objects.remove(i + 1);
                 } else if (objects.get(i).equals(OperatorType.TWICE)) {
                     objects.set(i, (int) objects.get(i + 1) * 2);
+                } else if (objects.get(i).equals(OperatorType.MODULO)) {
+                    objects.set(i, (int) objects.get(i + 1) % (int) objects.get(i + 2));
+                    objects.remove(i + 1);
                 } else {
                     throw new RuntimeException("Unknown operator type!");
                 }

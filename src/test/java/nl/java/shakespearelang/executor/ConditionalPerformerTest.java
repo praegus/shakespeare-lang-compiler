@@ -58,4 +58,16 @@ public class ConditionalPerformerTest {
 
         assertThat(conditionalPerformer.performConditional()).isFalse();
     }
+
+    @Test
+    public void calculations_in_conditionals() throws Exception {
+        Map<CharacterInPlay, Integer> map = new HashMap<>();
+        map.put(new CharacterInPlay("romeo"), 10);
+        map.put(new CharacterInPlay("juliet"), 3);
+        Conditional conditional = new Conditional(new CharacterInPlay("juliet"), "is the remainder of the quotient between Romeo and me as good as nothing");
+
+        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, map, new CharacterInPlay("the ghost"), new Wordlist());
+
+        assertThat(conditionalPerformer.performConditional()).isTrue();
+    }
 }

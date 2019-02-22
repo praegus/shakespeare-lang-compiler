@@ -24,7 +24,7 @@ public class AssignmentPerformerStaticFunctionsTest {
     @Test
     public void if_you_are_as_as_is_present_it_is_cleaned() {
         List<String> result =
-            AssignmentPerformer.removeAssignmentOperator(new ArrayList<>(asList("you", "are", "as", "idiotic", "as", "a", "pear")), "you are as idiotic as a pear");
+                AssignmentPerformer.removeAssignmentOperator(new ArrayList<>(asList("you", "are", "as", "idiotic", "as", "a", "pear")), "you are as idiotic as a pear");
         assertThat(result).containsExactly("a", "pear");
     }
 
@@ -37,15 +37,15 @@ public class AssignmentPerformerStaticFunctionsTest {
     @Test
     public void if_thou_art_as_as_is_present_it_is_cleaned() {
         List<String> result =
-            AssignmentPerformer.removeAssignmentOperator(new ArrayList<>(asList("thou", "art", "as", "idiotic", "as", "a", "pear")), "thou art as idiotic as a pear");
+                AssignmentPerformer.removeAssignmentOperator(new ArrayList<>(asList("thou", "art", "as", "idiotic", "as", "a", "pear")), "thou art as idiotic as a pear");
         assertThat(result).containsExactly("a", "pear");
     }
 
     @Test
     public void if_a_word_is_unknown_an_exception_is_thrown() {
         assertThatThrownBy(() -> AssignmentPerformer.setOperators(singletonList("unknown"), new Wordlist()))
-            .isInstanceOf(RuntimeException.class)
-            .hasMessage("The word 'unknown' is unknown!");
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("The word 'unknown' is unknown!");
     }
 
     @Test
@@ -75,18 +75,18 @@ public class AssignmentPerformerStaticFunctionsTest {
     @Test
     public void if_operators_are_summarizeed_calculations_with_adjectives_and_nouns_are_performed_correctly_and_other_operators_are_left_in_place() {
         List<Object> result = AssignmentPerformer.summarizeOperators(asList(
-            SUBTRACT,
-            SQUARE,
-            SUBTRACT,
-            ADJECTIVE,
-            POSITIVE_NOUN,
-            ADJECTIVE,
-            ADJECTIVE,
-            NEGATIVE_NOUN,
-            CUBE,
-            ADJECTIVE,
-            ADJECTIVE,
-            NEGATIVE_NOUN));
+                SUBTRACT,
+                SQUARE,
+                SUBTRACT,
+                ADJECTIVE,
+                POSITIVE_NOUN,
+                ADJECTIVE,
+                ADJECTIVE,
+                NEGATIVE_NOUN,
+                CUBE,
+                ADJECTIVE,
+                ADJECTIVE,
+                NEGATIVE_NOUN));
         assertThat(result.get(0)).isEqualTo(SUBTRACT);
         assertThat(result.get(1)).isEqualTo(SQUARE);
         assertThat(result.get(2)).isEqualTo(SUBTRACT);
@@ -98,53 +98,51 @@ public class AssignmentPerformerStaticFunctionsTest {
     //the difference between the square of the difference between my little pony and your big hairy hound and the cube of your sorry little codpiece.
 
     @Test
-    public void operations_are_performed_from_back_to_front(){
+    public void operations_are_performed_from_back_to_front() {
         int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(SUBTRACT, SQUARE, SUBTRACT, 2, -4, CUBE, -4)));
         assertThat(result).isEqualTo(100);
     }
 
     @Test
-    public void if_a_square_operation_is_performed_the_result_is_the_square(){
+    public void if_a_square_operation_is_performed_the_result_is_the_square() {
         int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(SQUARE, 3)));
         assertThat(result).isEqualTo(9);
     }
 
     @Test
-    public void if_a_cube_operation_is_performed_the_result_is_the_cube(){
+    public void if_a_cube_operation_is_performed_the_result_is_the_cube() {
         int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(CUBE, 3)));
         assertThat(result).isEqualTo(27);
     }
 
     @Test
-    public void if_a_add_operation_is_performed_the_result_is_the_addition(){
+    public void if_a_add_operation_is_performed_the_result_is_the_addition() {
         int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(OperatorType.ADD, 3, 4)));
         assertThat(result).isEqualTo(7);
     }
 
     @Test
-    public void if_a_subtract_operation_is_performed_the_result_is_the_cube(){
+    public void if_a_subtract_operation_is_performed_the_result_is_the_cube() {
         int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(OperatorType.SUBTRACT, 3, 4)));
         assertThat(result).isEqualTo(-1);
     }
 
     @Test
-    public void if_a_multiply_operation_is_performed_the_result_is_the_cube(){
+    public void if_a_multiply_operation_is_performed_the_result_is_the_cube() {
         int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(OperatorType.MULTIPLY, 3, 4)));
         assertThat(result).isEqualTo(12);
     }
 
     @Test
-    public void if_a_divide_operation_is_performed_the_result_is_the_cube(){
+    public void if_a_divide_operation_is_performed_the_result_is_the_cube() {
         int result = AssignmentPerformer.executeOperations(new ArrayList<>(asList(OperatorType.DIVIDE, 4, 4)));
         assertThat(result).isEqualTo(1);
     }
 
-
     @Test
-    public void if_the_operator_is_unknown_an_exception_is_expected(){
+    public void if_the_operator_is_unknown_an_exception_is_expected() {
         assertThatThrownBy(() -> AssignmentPerformer.executeOperations(new ArrayList<>(asList(3.4, 4, 4))))
-            .isInstanceOf(RuntimeException.class)
-            .hasMessage("Unknown operator type!");
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("Unknown operator type!");
     }
-
 }

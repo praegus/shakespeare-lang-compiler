@@ -1,6 +1,7 @@
 package nl.java.shakespearelang.executor;
 
 import nl.java.shakespearelang.CharacterInPlay;
+import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
 
 import java.util.Map;
@@ -18,11 +19,10 @@ public class ConditionalPerformer {
         this.wordlist = wordlist;
     }
 
-    // "art thou more cunning than the ghost"
     public boolean performConditional() {
+        int secondValue = decideLastParameter();
         int firstvalue = decideFirstParameter();
         Comparator comparator = decideComparator();
-        int secondValue = decideLastParameter();
 
         if (comparator.equals(Comparator.GREATER_THAN)) {
             return firstvalue > secondValue;
@@ -51,6 +51,10 @@ public class ConditionalPerformer {
     }
 
     private int decideFirstParameter() {
+        if (conditional.getLine().startsWith("is the")) {
+            return computeValue(conditional.getLine().substring(0, conditional.getLine().indexOf("as")).trim().replace("is ", ""));
+        }
+
         if (conditional.getLine().startsWith("art thou")) {
             return characters.get(object);
         } else if (conditional.getLine().startsWith("am i")) {
@@ -61,18 +65,38 @@ public class ConditionalPerformer {
     }
 
     private int decideLastParameter() {
-        String lastParameter = conditional.getLine().substring(conditional.getLine().indexOf("than ") + 5);
+        String lastParameter = getLastParameterText();
         if (lastParameter.equals("you")) {
             return characters.get(object);
         } else if (characters.get(new CharacterInPlay(lastParameter)) != null) {
             return characters.get(new CharacterInPlay(lastParameter));
+        } else if (lastParameter.equals("nothing")) {
+            return 0;
         } else {
             throw new RuntimeException("cannot decide value of last parameter!");
         }
     }
 
+    private String getLastParameterText() {
+        String lastParameter;
+        if (conditional.getLine().contains("than")) {
+            lastParameter = conditional.getLine().substring(conditional.getLine().indexOf("than ") + 5);
+        } else if (conditional.getLine().contains("as")) {
+            String vanafEersteAs = conditional.getLine().substring(conditional.getLine().indexOf("as ") + 3);
+            lastParameter = vanafEersteAs.substring(vanafEersteAs.indexOf("as ") + 3);
+        } else {
+            throw new RuntimeException("cannot decide value of last parameter!");
+        }
+        return lastParameter;
+    }
+
     enum Comparator {
         GREATER_THAN,
         SMALLER_THAN
+    }
+
+    private int computeValue(String line) {
+        AssignmentPerformer assignmentPerformer = new AssignmentPerformer(new Assignment(conditional.getSubject(), line), characters, characters.get(object), wordlist);
+        return assignmentPerformer.performAssignment();
     }
 }

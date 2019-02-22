@@ -18,11 +18,14 @@ public class OperatorType {
     public static final OperatorType QUOTIENT = new OperatorType("QUOTIENT");
     public static final OperatorType CUBE = new OperatorType("CUBE");
     public static final OperatorType TWICE = new OperatorType("TWICE");
+    public static final OperatorType MODULO = new OperatorType("MODULO");
 
     public static final OperatorType ADJECTIVE = new OperatorType("AJECTIVE");
     public static final OperatorType NEGATIVE_NOUN = new OperatorType("NEGATIVE_NOUN");
     public static final OperatorType POSITIVE_NOUN = new OperatorType("POSITIVE_NOUN");
     public static final OperatorType OBJECT_VALUE = new OperatorType("OBJECT_VALUE");
+    public static final OperatorType SUBJECT_VALUE = new OperatorType("SUBJECT_VALUE");
+
 
     public static final OperatorType CHARACTER = new OperatorType("CHARACTER");
 
