@@ -45,7 +45,7 @@ public class PlayPerformer {
     private void initializeCharacters(Map<CharacterInPlay, Integer> characters) {
         for (CharacterInPlay character : characters.keySet()) {
             if (!wordlist.isCharacter(character)) {
-                throw new RuntimeException("Character " + character + " is not a Shakespeare personae!");
+                throw new RuntimeException("Character " + character.getName() + " is not a Shakespeare personae!");
             }
         }
         this.characters = characters;
