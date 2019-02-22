@@ -43,7 +43,6 @@ public class PlayPerformerTest {
         assertThat(outContent.toString().trim()).isEqualTo("Hello World!");
     }
 
-    @Ignore // work in progress
     @Test
     public void prime() throws Exception {
         ByteArrayInputStream in = new ByteArrayInputStream("10".getBytes());
@@ -55,6 +54,12 @@ public class PlayPerformerTest {
 
         PlayPerformer playPerformer = new PlayPerformer(play);
         playPerformer.performPlay();
+
+        assertThat(outContent.toString().trim()).isEqualTo(
+                ">2\n" +
+                "3\n" +
+                "5\n" +
+                "7");
     }
 
 

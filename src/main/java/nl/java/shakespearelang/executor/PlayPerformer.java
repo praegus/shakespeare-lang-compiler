@@ -7,15 +7,13 @@ import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
 import nl.java.shakespearelang.parser.line.Enter;
 import nl.java.shakespearelang.parser.line.Exit;
+import nl.java.shakespearelang.parser.line.Goto;
 import nl.java.shakespearelang.parser.line.InputStatement;
 import nl.java.shakespearelang.parser.line.Line;
 import nl.java.shakespearelang.parser.line.OutputStatement;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class PlayPerformer {
@@ -23,6 +21,7 @@ public class PlayPerformer {
     private Wordlist wordlist;
     private Map<CharacterInPlay, Integer> characters;
     private List<CharacterInPlay> personaeOnStage = new ArrayList<>();
+    private boolean condition = false;
 
     public PlayPerformer(Play play) throws IOException {
         this.play = play;
@@ -76,8 +75,14 @@ public class PlayPerformer {
             InputStatementPerformer inputStatementPerformer = new InputStatementPerformer((InputStatement) line);
             characters.replace(object, inputStatementPerformer.performInputStatement());
         } else if (line instanceof Conditional) {
-            ConditionalPerformer conditionalPerformer = new ConditionalPerformer((Conditional) line, characters);
-            conditionalPerformer.performConditional();
+            CharacterInPlay object = getObjectOfLine(line.getSubject());
+            ConditionalPerformer conditionalPerformer = new ConditionalPerformer((Conditional) line, characters, object, wordlist);
+            condition = conditionalPerformer.performConditional();
+        } else if (line instanceof Goto) {
+        	Goto gotoStatement = ((Goto) line);
+        	if (!gotoStatement.isConditionBased() || condition) {
+        		return new ActSceneLine(actSceneLine.getAct(), gotoStatement.getRequestedScene() , 1);
+        	}
         } else {
             throw new RuntimeException("unknown line type: " + line.getClass().getSimpleName());
         }
@@ -96,7 +101,7 @@ public class PlayPerformer {
         if (((OutputStatement) line).isPrintNumber()) {
             System.out.print(objectValue);
         } else {
-            System.out.print(Character.toString((char) objectValue.intValue()));
+            System.out.print((char) objectValue.intValue());
         }
     }
 

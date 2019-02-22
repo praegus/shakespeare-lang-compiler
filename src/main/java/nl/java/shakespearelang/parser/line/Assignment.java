@@ -18,13 +18,18 @@ public class Assignment extends Line {
         line = line.replaceAll("the sum of", THESUMOF);
         line = line.replaceAll("the product of", THEPRODUCTOF);
         line = line.replaceAll("the square of", THESQUAREOF);
+        line = line.replaceAll("the square root of", THESQUAREROOT);
+
+        line = line.replaceAll("the remainder of the quotient between", THEREMAINDEROFTHEQUOTIENT);
         line = line.replaceAll("the quotient between", THEQUOTIENTBETWEEN);
         line = line.replaceAll("the cube of", THECUBEOF);
         line = line.replaceAll("twice", TWICE);
+        line = line.replaceAll("nothing", NOTHING);
 
 
         line = line.replaceAll("summer's day", "summer'sday");
         line = line.replaceAll("thyself", YOURSELF);
+        line = line.replaceAll(" me", " "+ME);
         this.words = line.split(" ");
     }
 }
