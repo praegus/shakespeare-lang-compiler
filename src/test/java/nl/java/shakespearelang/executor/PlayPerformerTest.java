@@ -65,12 +65,17 @@ public class PlayPerformerTest {
     @Ignore // todo fix me!
     @Test
     public void reverse() throws Exception {
+        ByteArrayInputStream in = new ByteArrayInputStream("Hello world!".getBytes());
+        System.setIn(in);
+
         String program = readFile("reverse.spl");
 
         Play play = new Play(program);
 
         PlayPerformer playPerformer = new PlayPerformer(play);
         playPerformer.performPlay();
+
+        assertThat(outContent.toString().trim()).isEqualTo("!dlrow olleH");
     }
 
 
