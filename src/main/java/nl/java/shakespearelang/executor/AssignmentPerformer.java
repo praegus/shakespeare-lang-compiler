@@ -64,6 +64,8 @@ public class AssignmentPerformer {
     static List<String> removeAssignmentOperator(List<String> words, String line) {
         if (line.matches("you are as \\w+ as.*")) {
             words = words.subList(5, words.size());
+        } else if (line.matches("you are .*")) {
+            words = words.subList(2, words.size());
         } else if (line.matches("thou art as \\w+ as.*")) {
             words = words.subList(5, words.size());
         } else if (line.startsWith("you")) {
