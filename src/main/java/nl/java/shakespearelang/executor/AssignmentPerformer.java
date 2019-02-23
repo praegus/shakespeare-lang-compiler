@@ -1,22 +1,21 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.CharacterInPlay;
+import nl.java.shakespearelang.Characters;
 import nl.java.shakespearelang.parser.line.Assignment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import static nl.java.shakespearelang.parser.line.TextSimplifiers.*;
 
 public class AssignmentPerformer {
     private final Integer objectValue;
     private final Assignment line;
-    private final Map<CharacterInPlay, Integer> characters;
+    private final Characters characters;
     private final Wordlist wordlist;
 
-    public AssignmentPerformer(Assignment line, Map<CharacterInPlay, Integer> characters, Integer objectValue, Wordlist wordlist) {
+    public AssignmentPerformer(Assignment line, Characters characters, Integer objectValue, Wordlist wordlist) {
         this.objectValue = objectValue;
         this.line = line;
         this.characters = characters;
@@ -45,7 +44,7 @@ public class AssignmentPerformer {
         for (int i = 0; i < summarizedOperators.size(); i++) {
             if (summarizedOperators.get(i).equals(OperatorType.CHARACTER)) {
                 OperatorType character = (OperatorType) summarizedOperators.get(i);
-                summarizedOperators.set(i, characters.get(character.getCharacterInPlay()));
+                summarizedOperators.set(i, characters.getValue(character.getCharacterInPlay()));
             }
         }
     }
@@ -56,7 +55,7 @@ public class AssignmentPerformer {
                 summarizedOperators.set(i, objectValue);
             }
             if (summarizedOperators.get(i).equals(OperatorType.SUBJECT_VALUE)) {
-                summarizedOperators.set(i, characters.get(line.getSubject()));
+                summarizedOperators.set(i, characters.getValue(line.getSubject()));
             }
         }
     }

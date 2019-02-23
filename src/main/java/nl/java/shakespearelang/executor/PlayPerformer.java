@@ -2,7 +2,9 @@ package nl.java.shakespearelang.executor;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.java.shakespearelang.CharacterInPlay;
+import nl.java.shakespearelang.Characters;
 import nl.java.shakespearelang.parser.Play;
+import nl.java.shakespearelang.parser.Push;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
 import nl.java.shakespearelang.parser.line.Enter;
@@ -19,7 +21,7 @@ import java.util.*;
 public class PlayPerformer {
     private final Play play;
     private Wordlist wordlist;
-    private Map<CharacterInPlay, Integer> characters;
+    private Characters characters;
     private List<CharacterInPlay> personaeOnStage = new ArrayList<>();
     private boolean condition = false;
 
@@ -49,7 +51,7 @@ public class PlayPerformer {
         }
     }
 
-    private void initializeCharacters(Map<CharacterInPlay, Integer> characters) {
+    private void initializeCharacters(Characters characters) {
         for (CharacterInPlay character : characters.keySet()) {
             if (!wordlist.isCharacter(character)) {
                 throw new RuntimeException("Character " + character.getName() + " is not a Shakespeare personae!");
@@ -65,10 +67,10 @@ public class PlayPerformer {
         } else if (line instanceof Exit) {
             exitPersonae((Exit) line);
         } else if (line instanceof OutputStatement) {
-            performStatement(line, characters.get(getObjectOfLine(line.getSubject())));
+            performStatement(line, characters.getValue(getObjectOfLine(line.getSubject())));
         } else if (line instanceof Assignment) {
             CharacterInPlay object = getObjectOfLine(line.getSubject());
-            AssignmentPerformer assignmentPerformer = new AssignmentPerformer((Assignment) line, characters, characters.get(object), wordlist);
+            AssignmentPerformer assignmentPerformer = new AssignmentPerformer((Assignment) line, characters, characters.getValue(object), wordlist);
             characters.replace(object, assignmentPerformer.performAssignment());
         } else if (line instanceof InputStatement) {
             CharacterInPlay object = getObjectOfLine(line.getSubject());
@@ -83,6 +85,8 @@ public class PlayPerformer {
             if (gotoStatement.conditionApplies(condition)) {
                 return new ActSceneLine(actSceneLine.getAct(), gotoStatement.getRequestedScene(), 1);
             }
+        } else if (line instanceof Push) {
+        	
         } else {
             throw new RuntimeException("unknown line type: " + line.getClass().getSimpleName());
         }

@@ -62,7 +62,7 @@ public class PlayPerformerTest {
                 "7");
     }
 
-    @Ignore // todo fix me!
+    @Ignore
     @Test
     public void reverse() throws Exception {
         ByteArrayInputStream in = new ByteArrayInputStream("Hello world!".getBytes());

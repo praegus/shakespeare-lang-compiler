@@ -2,16 +2,15 @@ package nl.java.shakespearelang.parser;
 
 import lombok.Getter;
 import nl.java.shakespearelang.CharacterInPlay;
+import nl.java.shakespearelang.Characters;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 public class Play {
     private String title;
-    private Map<CharacterInPlay, Integer> characters = new HashMap<>();
+    private Characters characters = new Characters();
     private List<Act> acts = new ArrayList<>();
 
     public Play(String input) {
