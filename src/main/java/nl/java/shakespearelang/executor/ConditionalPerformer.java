@@ -62,7 +62,7 @@ public class ConditionalPerformer {
             return computeValue(conditional.getLine().substring(0, conditional.getLine().indexOf("as")).trim().replace("is ", ""));
         }
 
-        if (conditional.getLine().startsWith("art thou")) {
+        if (conditional.getLine().startsWith("art thou") || conditional.getLine().startsWith("are you")) {
             return characters.getCharacter(object).getValue();
         } else if (conditional.getLine().startsWith("am i")) {
             return characters.getCharacter(conditional.getSubject()).getValue();

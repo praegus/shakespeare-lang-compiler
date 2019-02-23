@@ -2,8 +2,6 @@ package nl.java.shakespearelang;
 
 import java.util.ArrayList;
 
-import lombok.Data;
-
 public class Characters extends ArrayList<Character> {
 	public Character getCharacter(CharacterInPlay characterInPlay) {
 		for (Character character : this) {
@@ -12,5 +10,14 @@ public class Characters extends ArrayList<Character> {
 			}
 		}
 		throw new RuntimeException("Character not found: " + characterInPlay.getName());
+	}
+	
+	public Character getCharacter(String name) {
+		for (Character character : this) {
+			if (character.getName().equals(name)) {
+				return character;
+			}
+		}
+		throw new RuntimeException("Character not found: " + name);
 	}
 }
