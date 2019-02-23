@@ -44,7 +44,7 @@ public class AssignmentPerformer {
         for (int i = 0; i < summarizedOperators.size(); i++) {
             if (summarizedOperators.get(i).equals(OperatorType.CHARACTER)) {
                 OperatorType character = (OperatorType) summarizedOperators.get(i);
-                summarizedOperators.set(i, characters.getValue(character.getCharacterInPlay()));
+                summarizedOperators.set(i, characters.getCharacter(character.getCharacterInPlay()).getValue());
             }
         }
     }
@@ -55,7 +55,7 @@ public class AssignmentPerformer {
                 summarizedOperators.set(i, objectValue);
             }
             if (summarizedOperators.get(i).equals(OperatorType.SUBJECT_VALUE)) {
-                summarizedOperators.set(i, characters.getValue(line.getSubject()));
+                summarizedOperators.set(i, characters.getCharacter(line.getSubject()).getValue());
             }
         }
     }

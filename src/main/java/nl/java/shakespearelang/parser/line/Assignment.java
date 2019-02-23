@@ -28,6 +28,7 @@ public class Assignment extends Line {
 
 
         line = line.replaceAll("summer's day", "summer'sday");
+        line = line.replaceAll("stone wall", "stonewall");
         line = line.replaceAll("thyself", YOURSELF);
         line = line.replaceAll(" me", " "+ME);
         this.words = line.split(" ");

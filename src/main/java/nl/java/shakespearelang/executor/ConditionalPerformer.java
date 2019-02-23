@@ -63,9 +63,9 @@ public class ConditionalPerformer {
         }
 
         if (conditional.getLine().startsWith("art thou")) {
-            return characters.getValue(object);
+            return characters.getCharacter(object).getValue();
         } else if (conditional.getLine().startsWith("am i")) {
-            return characters.getValue(conditional.getSubject());
+            return characters.getCharacter(conditional.getSubject()).getValue();
         } else {
             throw new RuntimeException("cannot decide value of first parameter!");
         }
@@ -75,10 +75,12 @@ public class ConditionalPerformer {
         String lastParameter = getLastParameterText();
         if (lastParameter.equals("nothing")) {
         	return 0;
+        } else if (lastParameter.startsWith("a")) {
+        	return computeValue(lastParameter);
         } else if (lastParameter.equals("you")) {
-            return characters.getValue(object);
-        } else if (characters.getValue(new CharacterInPlay(lastParameter)) != null) {
-            return characters.getValue(new CharacterInPlay(lastParameter));
+            return characters.getCharacter(object).getValue();
+        } else if (characters.getCharacter(new CharacterInPlay(lastParameter)).getValue() != null) {
+            return characters.getCharacter(new CharacterInPlay(lastParameter)).getValue();
         } else {
             throw new RuntimeException("cannot decide value of last parameter!");
         }
@@ -104,7 +106,7 @@ public class ConditionalPerformer {
     }
 
     private int computeValue(String line) {
-        AssignmentPerformer assignmentPerformer = new AssignmentPerformer(new Assignment(conditional.getSubject(), line), characters, characters.getValue(object), wordlist);
+        AssignmentPerformer assignmentPerformer = new AssignmentPerformer(new Assignment(conditional.getSubject(), line), characters, characters.getCharacter(object).getValue(), wordlist);
         return assignmentPerformer.performAssignment();
     }
 }

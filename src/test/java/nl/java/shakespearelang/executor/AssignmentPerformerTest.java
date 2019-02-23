@@ -2,6 +2,7 @@ package nl.java.shakespearelang.executor;
 
 import nl.java.shakespearelang.CharacterInPlay;
 import nl.java.shakespearelang.Characters;
+import nl.java.shakespearelang.Character;
 import nl.java.shakespearelang.parser.line.Assignment;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class AssignmentPerformerTest {
     public void when_a_character_is_named_the_value_of_that_character_is_used() {
         Assignment assignment = new Assignment(new CharacterInPlay("hamlet"), "you are as small as Juliet");
         Characters characters = new Characters();
-        characters.put(new CharacterInPlay("juliet"), 3);
+        characters.add(new Character("juliet", 3));
         AssignmentPerformer assignmentPerformer = new AssignmentPerformer(assignment, characters, null, wordlist);
         int result = assignmentPerformer.performAssignment();
         assertThat(result).isEqualTo(3);
@@ -52,8 +53,8 @@ public class AssignmentPerformerTest {
         Assignment assignment = new Assignment(new CharacterInPlay("hamlet"), "the remainder of the quotient between juliet and me");
 
         Characters characters = new Characters();
-        characters.put(new CharacterInPlay("juliet"), 9);
-        characters.put(new CharacterInPlay("hamlet"), 3);
+        characters.add(new Character("juliet", 9));
+        characters.add(new Character("hamlet", 3));
 
         AssignmentPerformer assignmentPerformer = new AssignmentPerformer(assignment, characters, 3, wordlist);
 
@@ -66,8 +67,8 @@ public class AssignmentPerformerTest {
         Assignment assignment = new Assignment(new CharacterInPlay("hamlet"), "the remainder of the quotient between juliet and me");
 
         Characters characters = new Characters();
-        characters.put(new CharacterInPlay("juliet"), 10);
-        characters.put(new CharacterInPlay("hamlet"), 3);
+        characters.add(new Character("juliet", 10));
+        characters.add(new Character("hamlet", 3));
 
         AssignmentPerformer assignmentPerformer = new AssignmentPerformer(assignment, characters, 3, wordlist);
 
@@ -80,7 +81,7 @@ public class AssignmentPerformerTest {
         Assignment assignment = new Assignment(new CharacterInPlay("hamlet"), "you are as villainous as the square root of romeo");
 
         Characters characters = new Characters();
-        characters.put(new CharacterInPlay("romeo"), 9);
+        characters.add(new Character("romeo", 9));
 
         AssignmentPerformer assignmentPerformer = new AssignmentPerformer(assignment, characters, 3, wordlist);
 

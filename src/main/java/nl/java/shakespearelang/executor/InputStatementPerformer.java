@@ -14,7 +14,7 @@ public class InputStatementPerformer {
         this.inputStatement = line;
     }
 
-    public int performInputStatement() throws IOException {
+    public int performInputStatement(Reader characterReader) throws IOException {
         if (inputStatement.readNumber()) {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -24,9 +24,8 @@ public class InputStatementPerformer {
                 System.err.println("Invalid Format!");
             }
         } else {
-        	Reader br = new BufferedReader(new InputStreamReader(System.in));
             try {
-                return br.read();
+                return characterReader.read();
             } catch (NumberFormatException nfe) {
                 System.err.println("Invalid Format!");
             }

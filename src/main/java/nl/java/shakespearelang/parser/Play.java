@@ -3,6 +3,7 @@ package nl.java.shakespearelang.parser;
 import lombok.Getter;
 import nl.java.shakespearelang.CharacterInPlay;
 import nl.java.shakespearelang.Characters;
+import nl.java.shakespearelang.Character;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,7 @@ public class Play {
             if (!aPersonae.contains(",")) {
                 throw new RuntimeException("Cannot parse program, Character has no description starting with a comma and ending with a dot!");
             }
-            characters.put(new CharacterInPlay(aPersonae.substring(0, aPersonae.indexOf(",")).toLowerCase()), 0);
+            characters.add(new Character(aPersonae.substring(0, aPersonae.indexOf(",")).toLowerCase(), 0));
         }
     }
 
