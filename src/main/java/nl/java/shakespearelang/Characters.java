@@ -1,23 +1,42 @@
 package nl.java.shakespearelang;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 
-public class Characters extends LinkedHashMap<CharacterInPlay, Integer[]> {
-	Map<CharacterInPlay, Integer[]> characters = new HashMap<>();
+public class Characters extends HashMap<CharacterInPlay, List<Integer>> {
+	public Map<CharacterInPlay, List<Integer>> characters = new HashMap<>();
 	
 	public void replace(CharacterInPlay characterInPlay, Integer integer) {
-		this.characters.replace(characterInPlay, new Integer[] { integer });
+		List<Integer> newIntegerList = new ArrayList<Integer>();
+		newIntegerList.add(integer);
+		this.characters.replace(characterInPlay, newIntegerList);
 	}
 	
 	public void put(CharacterInPlay characterInPlay, Integer integer) {
-		this.characters.put(characterInPlay, new Integer[] { integer });
+		List<Integer> newIntegerList = new ArrayList<Integer>();
+		newIntegerList.add(integer);
+		this.characters.put(characterInPlay, newIntegerList);
+	}
+	
+	public void push(CharacterInPlay characterInPlay, Integer integer) {
+		this.characters.get(characterInPlay).add(integer);
+	}
+	
+	public void pop(CharacterInPlay characterInPlay) {
+		int size = characters.get(characterInPlay).size();
+		this.characters.get(characterInPlay).remove(size - 1);
 	}
 	
 	public Integer getValue(CharacterInPlay characterInPlay) {
-		int length = characters.get(characterInPlay).length;
-		return characters.get(characterInPlay)[length-1];
+		int size = characters.get(characterInPlay).size();
+		return characters.get(characterInPlay).get(size - 1);
+	}
+	
+	public Map<CharacterInPlay, List<Integer>> get() {
+		return characters;
 	}
 }
