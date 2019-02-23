@@ -8,7 +8,7 @@ import java.util.Map;
 
 
 public class Characters extends HashMap<CharacterInPlay, List<Integer>> {
-	public Map<CharacterInPlay, List<Integer>> characters = new HashMap<>();
+	public Map<CharacterInPlay, List<Integer>> characters = this;
 	
 	public void replace(CharacterInPlay characterInPlay, Integer integer) {
 		List<Integer> newIntegerList = new ArrayList<Integer>();
@@ -34,9 +34,5 @@ public class Characters extends HashMap<CharacterInPlay, List<Integer>> {
 	public Integer getValue(CharacterInPlay characterInPlay) {
 		int size = characters.get(characterInPlay).size();
 		return characters.get(characterInPlay).get(size - 1);
-	}
-	
-	public Map<CharacterInPlay, List<Integer>> get() {
-		return characters;
 	}
 }

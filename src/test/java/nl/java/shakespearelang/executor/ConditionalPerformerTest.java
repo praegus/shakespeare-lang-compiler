@@ -62,6 +62,7 @@ public class ConditionalPerformerTest {
     	Characters characters = new Characters();
         characters.put(new CharacterInPlay("romeo"), 9);
         characters.put(new CharacterInPlay("juliet"), 3);
+        characters.put(new CharacterInPlay("the ghost"), 0);
         Conditional conditional = new Conditional(new CharacterInPlay("juliet"), "is the remainder of the quotient between Romeo and me as good as nothing");
 
         ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, new CharacterInPlay("the ghost"), new Wordlist());
@@ -74,6 +75,7 @@ public class ConditionalPerformerTest {
     	Characters characters = new Characters();
         characters.put(new CharacterInPlay("romeo"), 10);
         characters.put(new CharacterInPlay("juliet"), 3);
+        characters.put(new CharacterInPlay("the ghost"), 0);
         Conditional conditional = new Conditional(new CharacterInPlay("juliet"), "is the remainder of the quotient between Romeo and me as good as nothing");
 
         ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, new CharacterInPlay("the ghost"), new Wordlist());
