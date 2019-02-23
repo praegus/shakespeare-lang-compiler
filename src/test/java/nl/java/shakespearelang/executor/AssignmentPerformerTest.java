@@ -99,4 +99,15 @@ public class AssignmentPerformerTest {
         assertThat(result).isEqualTo(10);
 
     }
+    
+    @Test
+    public void youAreNothing(){
+    	Assignment assignment = new Assignment(new CharacterInPlay("hamlet"), "you are nothing");
+
+        AssignmentPerformer assignmentPerformer = new AssignmentPerformer(assignment, null, 3, wordlist);
+
+        int result = assignmentPerformer.performAssignment();
+        assertThat(result).isEqualTo(0);
+
+    }
 }
