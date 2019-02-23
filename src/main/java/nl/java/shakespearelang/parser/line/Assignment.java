@@ -2,7 +2,7 @@ package nl.java.shakespearelang.parser.line;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import nl.java.shakespearelang.CharacterInPlay;
+import nl.java.shakespearelang.CharacterAsString;
 
 import static nl.java.shakespearelang.parser.line.TextSimplifiers.*;
 
@@ -11,7 +11,7 @@ import static nl.java.shakespearelang.parser.line.TextSimplifiers.*;
 public class Assignment extends Line {
     private String[] words;
 
-    public Assignment(CharacterInPlay subject, String line) {
+    public Assignment(CharacterAsString subject, String line) {
         super(subject, line);
         line = line.toLowerCase();
         line = line.replaceAll("the difference between", THEDIFFERENCEBETWEEN);

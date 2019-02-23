@@ -1,7 +1,7 @@
 package nl.java.shakespearelang.parser;
 
 import lombok.Getter;
-import nl.java.shakespearelang.CharacterInPlay;
+import nl.java.shakespearelang.CharacterAsString;
 import nl.java.shakespearelang.Characters;
 import nl.java.shakespearelang.Character;
 

@@ -1,11 +1,11 @@
 package nl.java.shakespearelang.parser.line;
 
-import nl.java.shakespearelang.CharacterInPlay;
+import nl.java.shakespearelang.CharacterAsString;
 
 public class InputStatement extends Line {
     private final boolean readNumber;
 
-    public InputStatement(CharacterInPlay subject, String line) {
+    public InputStatement(CharacterAsString subject, String line) {
         super(subject, line);
         if (line.equals("listen to your heart")) {
             this.readNumber = true;

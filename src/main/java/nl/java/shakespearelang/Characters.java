@@ -3,7 +3,7 @@ package nl.java.shakespearelang;
 import java.util.ArrayList;
 
 public class Characters extends ArrayList<Character> {
-	public Character getCharacter(CharacterInPlay characterInPlay) {
+	public Character getCharacter(CharacterAsString characterInPlay) {
 		for (Character character : this) {
 			if (character.getName().equals(characterInPlay.getName())) {
 				return character;

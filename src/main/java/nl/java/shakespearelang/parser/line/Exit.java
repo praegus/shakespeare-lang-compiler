@@ -2,7 +2,7 @@ package nl.java.shakespearelang.parser.line;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import nl.java.shakespearelang.CharacterInPlay;
+import nl.java.shakespearelang.CharacterAsString;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import java.util.List;
 @EqualsAndHashCode
 @Getter
 public class Exit extends Line {
-    private List<CharacterInPlay> characters = new ArrayList<>();
+    private List<CharacterAsString> characters = new ArrayList<>();
     private boolean exeunt;
 
     public Exit(String line) {
@@ -21,7 +21,7 @@ public class Exit extends Line {
         } else {
             String[] _characters = line.replace("exit", "").replace("exeunt", "").split("and");
             for (String character : _characters) {
-                this.characters.add(new CharacterInPlay(character.trim()));
+                this.characters.add(new CharacterAsString(character.trim()));
             }
         }
     }

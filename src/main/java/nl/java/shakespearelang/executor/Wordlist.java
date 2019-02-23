@@ -1,6 +1,6 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.CharacterInPlay;
+import nl.java.shakespearelang.CharacterAsString;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -67,7 +67,7 @@ public class Wordlist {
         return characters.contains(character.toLowerCase());
     }
 
-    public boolean isCharacter(CharacterInPlay character) {
+    public boolean isCharacter(CharacterAsString character) {
         return isCharacter(character.getName());
     }
 

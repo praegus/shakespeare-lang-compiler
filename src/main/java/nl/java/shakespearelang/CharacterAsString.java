@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
-public class CharacterInPlay {
+public class CharacterAsString {
     private final String name;
 }
