@@ -1,18 +1,16 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.CharacterInPlay;
+import nl.java.shakespearelang.Characters;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
 
-import java.util.Map;
-
 public class ConditionalPerformer {
     private final Conditional conditional;
-    private final Map<CharacterInPlay, Integer> characters;
-    private CharacterInPlay object;
+    private final Characters characters;
+    private String object;
     private Wordlist wordlist;
 
-    public ConditionalPerformer(Conditional line, Map<CharacterInPlay, Integer> characters, CharacterInPlay object, Wordlist wordlist) {
+    public ConditionalPerformer(Conditional line, Characters characters, String object, Wordlist wordlist) {
         this.conditional = line;
         this.characters = characters;
         this.object = object;
@@ -63,10 +61,10 @@ public class ConditionalPerformer {
             return computeValue(conditional.getLine().substring(0, conditional.getLine().indexOf("as")).trim().replace("is ", ""));
         }
 
-        if (conditional.getLine().startsWith("art thou")) {
-            return characters.get(object);
+        if (conditional.getLine().startsWith("art thou") || conditional.getLine().startsWith("are you")) {
+            return characters.getCharacter(object).getValue();
         } else if (conditional.getLine().startsWith("am i")) {
-            return characters.get(conditional.getSubject());
+            return characters.getCharacter(conditional.getSubject()).getValue();
         } else {
             throw new RuntimeException("cannot decide value of first parameter!");
         }
@@ -74,12 +72,14 @@ public class ConditionalPerformer {
 
     private int decideLastParameter() {
         String lastParameter = getLastParameterText();
-        if (lastParameter.equals("you")) {
-            return characters.get(object);
-        } else if (characters.get(new CharacterInPlay(lastParameter)) != null) {
-            return characters.get(new CharacterInPlay(lastParameter));
-        } else if (lastParameter.equals("nothing")) {
-            return 0;
+        if (lastParameter.equals("nothing")) {
+        	return 0;
+        } else if (lastParameter.startsWith("a")) {
+        	return computeValue(lastParameter);
+        } else if (lastParameter.equals("you")) {
+            return characters.getCharacter(object).getValue();
+        } else if (characters.getCharacter(lastParameter).getValue() != null) {
+            return characters.getCharacter(lastParameter).getValue();
         } else {
             throw new RuntimeException("cannot decide value of last parameter!");
         }
@@ -105,7 +105,7 @@ public class ConditionalPerformer {
     }
 
     private int computeValue(String line) {
-        AssignmentPerformer assignmentPerformer = new AssignmentPerformer(new Assignment(conditional.getSubject(), line), characters, characters.get(object), wordlist);
+        AssignmentPerformer assignmentPerformer = new AssignmentPerformer(new Assignment(conditional.getSubject(), line), characters, characters.getCharacter(object).getValue(), wordlist);
         return assignmentPerformer.performAssignment();
     }
 }

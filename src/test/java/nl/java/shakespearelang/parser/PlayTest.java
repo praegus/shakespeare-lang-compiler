@@ -1,6 +1,6 @@
 package nl.java.shakespearelang.parser;
 
-import nl.java.shakespearelang.CharacterInPlay;
+import nl.java.shakespearelang.Character;
 import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class PlayTest {
         Play play = new Play("title. Romeo, a nice  lad. Act I: name.");
         assertThat(play.getTitle()).isEqualTo("title");
         assertThat(play.getCharacters()).hasSize(1);
-        assertThat(play.getCharacters().keySet()).contains(new CharacterInPlay("romeo"));
+        assertThat(play.getCharacters()).contains(new Character("romeo",0));
         assertThat(play.getActs()).hasSize(1);
         assertThat(play.getActs().get(0).getTitle()).isEqualTo("name");
     }
