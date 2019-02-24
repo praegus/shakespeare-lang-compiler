@@ -128,15 +128,11 @@ public class PlayPerformer {
         } else if (!personaeOnStage.contains(subject)) {
             throw new RuntimeException("Speaking person is not on stage!");
         }
-        if (line.getLine().equals("Remember me")) {
-        	return subject;
+    	int indexOfSubject = personaeOnStage.indexOf(subject);
+        if (indexOfSubject == 0) {
+            return personaeOnStage.get(1);
         } else {
-        	int indexOfSubject = personaeOnStage.indexOf(subject);
-	        if (indexOfSubject == 0) {
-	            return personaeOnStage.get(1);
-	        } else {
-	            return personaeOnStage.get(0);
-	        }
+            return personaeOnStage.get(0);
         }
     }
 }
