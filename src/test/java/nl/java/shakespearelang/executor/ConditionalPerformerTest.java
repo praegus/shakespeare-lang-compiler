@@ -1,6 +1,5 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.CharacterAsString;
 import nl.java.shakespearelang.Characters;
 import nl.java.shakespearelang.Character;
 import nl.java.shakespearelang.parser.line.Conditional;
@@ -15,9 +14,9 @@ public class ConditionalPerformerTest {
     	Characters characters = new Characters();
         characters.add(new Character("romeo", 10));
         characters.add(new Character("the ghost", 0));
-        Conditional conditional = new Conditional(new CharacterAsString("juliet"), "art thou more cunning than the ghost");
+        Conditional conditional = new Conditional("juliet", "art thou more cunning than the ghost");
 
-        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, new CharacterAsString("romeo"), new Wordlist());
+        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, "romeo", new Wordlist());
 
         assertThat(conditionalPerformer.performConditional()).isTrue();
     }
@@ -27,9 +26,9 @@ public class ConditionalPerformerTest {
     	Characters characters = new Characters();
         characters.add(new Character("juliet", 10));
         characters.add(new Character("the ghost", 0));
-        Conditional conditional = new Conditional(new CharacterAsString("juliet"), "am i better than you");
+        Conditional conditional = new Conditional("juliet", "am i better than you");
 
-        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, new CharacterAsString("the ghost"), new Wordlist());
+        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, "the ghost", new Wordlist());
 
         assertThat(conditionalPerformer.performConditional()).isTrue();
     }
@@ -39,9 +38,9 @@ public class ConditionalPerformerTest {
     	Characters characters = new Characters();
         characters.add(new Character("romeo", 10));
         characters.add(new Character("the ghost", 0));
-        Conditional conditional = new Conditional(new CharacterAsString("juliet"), "art thou more fat than the ghost");
+        Conditional conditional = new Conditional("juliet", "art thou more fat than the ghost");
 
-        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, new CharacterAsString("romeo"), new Wordlist());
+        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, "romeo", new Wordlist());
 
         assertThat(conditionalPerformer.performConditional()).isFalse();
     }
@@ -51,9 +50,9 @@ public class ConditionalPerformerTest {
     	Characters characters = new Characters();
         characters.add(new Character("juliet", 10));
         characters.add(new Character("the ghost", 0));
-        Conditional conditional = new Conditional(new CharacterAsString("juliet"), "am i smaller than you");
+        Conditional conditional = new Conditional("juliet", "am i smaller than you");
 
-        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, new CharacterAsString("the ghost"), new Wordlist());
+        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, "the ghost", new Wordlist());
 
         assertThat(conditionalPerformer.performConditional()).isFalse();
     }
@@ -64,9 +63,9 @@ public class ConditionalPerformerTest {
         characters.add(new Character("romeo", 9));
         characters.add(new Character("juliet", 3));
         characters.add(new Character("the ghost", 0));
-        Conditional conditional = new Conditional(new CharacterAsString("juliet"), "is the remainder of the quotient between Romeo and me as good as nothing");
+        Conditional conditional = new Conditional("juliet", "is the remainder of the quotient between Romeo and me as good as nothing");
 
-        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, new CharacterAsString("the ghost"), new Wordlist());
+        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, "the ghost", new Wordlist());
 
         assertThat(conditionalPerformer.performConditional()).isTrue();
     }
@@ -77,9 +76,9 @@ public class ConditionalPerformerTest {
         characters.add(new Character("romeo", 10));
         characters.add(new Character("juliet", 3));
         characters.add(new Character("the ghost", 0));
-        Conditional conditional = new Conditional(new CharacterAsString("juliet"), "is the remainder of the quotient between Romeo and me as good as nothing");
+        Conditional conditional = new Conditional("juliet", "is the remainder of the quotient between Romeo and me as good as nothing");
 
-        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, new CharacterAsString("the ghost"), new Wordlist());
+        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, "the ghost", new Wordlist());
 
         assertThat(conditionalPerformer.performConditional()).isFalse();
     }

@@ -1,6 +1,5 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.CharacterAsString;
 import nl.java.shakespearelang.Characters;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
@@ -8,10 +7,10 @@ import nl.java.shakespearelang.parser.line.Conditional;
 public class ConditionalPerformer {
     private final Conditional conditional;
     private final Characters characters;
-    private CharacterAsString object;
+    private String object;
     private Wordlist wordlist;
 
-    public ConditionalPerformer(Conditional line, Characters characters, CharacterAsString object, Wordlist wordlist) {
+    public ConditionalPerformer(Conditional line, Characters characters, String object, Wordlist wordlist) {
         this.conditional = line;
         this.characters = characters;
         this.object = object;
@@ -79,8 +78,8 @@ public class ConditionalPerformer {
         	return computeValue(lastParameter);
         } else if (lastParameter.equals("you")) {
             return characters.getCharacter(object).getValue();
-        } else if (characters.getCharacter(new CharacterAsString(lastParameter)).getValue() != null) {
-            return characters.getCharacter(new CharacterAsString(lastParameter)).getValue();
+        } else if (characters.getCharacter(lastParameter).getValue() != null) {
+            return characters.getCharacter(lastParameter).getValue();
         } else {
             throw new RuntimeException("cannot decide value of last parameter!");
         }

@@ -1,6 +1,5 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.CharacterAsString;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -65,10 +64,6 @@ public class Wordlist {
 
     public boolean isCharacter(String character) {
         return characters.contains(character.toLowerCase());
-    }
-
-    public boolean isCharacter(CharacterAsString character) {
-        return isCharacter(character.getName());
     }
 
     public List<String> getPositiveComparatives() {

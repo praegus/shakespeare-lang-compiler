@@ -1,7 +1,6 @@
 package nl.java.shakespearelang.parser;
 
 import lombok.Getter;
-import nl.java.shakespearelang.CharacterAsString;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
 import nl.java.shakespearelang.parser.line.Enter;
@@ -10,6 +9,8 @@ import nl.java.shakespearelang.parser.line.Goto;
 import nl.java.shakespearelang.parser.line.InputStatement;
 import nl.java.shakespearelang.parser.line.Line;
 import nl.java.shakespearelang.parser.line.OutputStatement;
+import nl.java.shakespearelang.parser.line.Pop;
+import nl.java.shakespearelang.parser.line.Push;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,7 @@ public class Scene {
     }
 
     private void addLines(String[] titleAndLines) {
-        CharacterAsString currentSubject = null;
+        String currentSubject = null;
         for (int i = 1; i < titleAndLines.length; i++) {
             String line = titleAndLines[i];
             if (line.contains("enter")) {
@@ -67,7 +68,7 @@ public class Scene {
             } else if (line.contains("exit") || line.contains("exeunt")) {
                 lines.add(new Exit(line));
             } else if (line.contains(":")) {
-                currentSubject = new CharacterAsString(line.substring(0, line.indexOf(":")));
+                currentSubject = line.substring(0, line.indexOf(":"));
                 addLineHelper(currentSubject, line.substring(line.indexOf(":") + 1).trim());
             } else {
                 addLineHelper(currentSubject, line);
@@ -75,7 +76,7 @@ public class Scene {
         }
     }
 
-    private void addLineHelper(CharacterAsString currentSubject, String line) {
+    private void addLineHelper(String currentSubject, String line) {
         line = line.trim();
         if (line.equals("listen to your heart") || line.equals("open your mind")) {
             lines.add(new InputStatement(currentSubject, line));
