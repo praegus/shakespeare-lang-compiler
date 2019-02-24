@@ -76,7 +76,22 @@ public class PlayPerformerTest {
 
         assertThat(outContent.toString().trim()).isEqualTo("!dlrow olleH");
     }
+    
+    @Ignore
+    @Test
+    public void fibonacci() throws Exception {
+        ByteArrayInputStream in = new ByteArrayInputStream("test".getBytes());
+        System.setIn(in);
 
+        String program = readFile("fibonacci.spl");
+
+        Play play = new Play(program);
+
+        PlayPerformer playPerformer = new PlayPerformer(play);
+        playPerformer.performPlay();
+
+        assertThat(outContent.toString().trim()).isEqualTo("!dlrow olleH");
+    }
 
     private String readFile(String filename) throws IOException {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();

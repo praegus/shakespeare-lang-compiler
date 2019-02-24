@@ -98,14 +98,14 @@ public class Scene {
             lines.add(new Goto(currentSubject, line, false));
         } else if (line.startsWith("if")) {
             lines.add(new Goto(currentSubject, line, true));
-        } else if (line.startsWith("let us")) {
+        } else if (line.startsWith("let us") || line.startsWith("we must return to")) {
             lines.add(new Goto(currentSubject, line, null));
         } else if (line.startsWith("remember")) {
             lines.add(new Push(currentSubject, line));
         } else if (line.startsWith("recall")) {
             lines.add(new Pop(currentSubject, line));
         } else {
-            throw new RuntimeException("type of line is unclear!");
+            throw new RuntimeException("type of line is unclear!" + line);
         }
     }
 
