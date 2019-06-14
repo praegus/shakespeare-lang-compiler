@@ -42,7 +42,7 @@ public class PlayTest {
 
     @Test
     public void parseHelloWorld() throws IOException {
-        Play play = new Play(readFile("hello.spl"));
+        Play play = new Play(readFile("helloWorld.spl"));
 
         assertThat(play.getTitle()).isEqualTo("the infamous hello world program");
         assertThat(play.getCharacters()).hasSize(4);
@@ -58,24 +58,22 @@ public class PlayTest {
         assertThat(play.getActs()).hasSize(2);
     }
 
-    @Ignore // fixme!
     @Test
     public void parseFibonacci() throws IOException {
         Play play = new Play(readFile("fibonacci.spl"));
 
-        assertThat(play.getTitle()).isEqualTo("prime number computation in copenhagen");
-        assertThat(play.getCharacters()).hasSize(4);
-        assertThat(play.getActs()).hasSize(2);
+        assertThat(play.getTitle()).isEqualTo("by peter nillius 20010831<nillius at nada dot kth dot se>fibonacci's numbers.rome");
+        assertThat(play.getCharacters()).hasSize(3);
+        assertThat(play.getActs()).hasSize(1);
     }
 
-    @Ignore // fixme!
     @Test
     public void parseFibonacci2() throws IOException {
         Play play = new Play(readFile("fibonacci2.spl"));
 
-        assertThat(play.getTitle()).isEqualTo("prime number computation in copenhagen");
-        assertThat(play.getCharacters()).hasSize(4);
-        assertThat(play.getActs()).hasSize(2);
+        assertThat(play.getTitle()).isEqualTo("by bj�rn stenberg and linus nielsen feltzing 20010831should thee wish to bring thyselves to our attention doeth as below,pointeth thy postal delivery appliance untobjorn(at)haxx(dot)se or linus(at)haxx(dot)sethe fibonacci drama.hamlet");
+        assertThat(play.getCharacters()).hasSize(5);
+        assertThat(play.getActs()).hasSize(1);
     }
 
     @Ignore // fixme!
@@ -88,14 +86,13 @@ public class PlayTest {
         assertThat(play.getActs()).hasSize(2);
     }
 
-    @Ignore // fixme!
     @Test
     public void parseReverse() throws IOException {
         Play play = new Play(readFile("reverse.spl"));
 
-        assertThat(play.getTitle()).isEqualTo("prime number computation in copenhagen");
-        assertThat(play.getCharacters()).hasSize(4);
-        assertThat(play.getActs()).hasSize(2);
+        assertThat(play.getTitle()).isEqualTo("outputting input reversedly");
+        assertThat(play.getCharacters()).hasSize(2);
+        assertThat(play.getActs()).hasSize(1);
     }
 
     @Ignore // fixme!

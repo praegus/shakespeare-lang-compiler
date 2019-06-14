@@ -16,7 +16,7 @@ public class MainTest {
 
     @Test
     public void if_a_program_is_given_as_argument_the_program_is_run() throws Exception {
-        String helloWorld = "hello.spl";
+        String helloWorld = "helloWorld.spl";
         Main.main(new String[]{helloWorld});
 
         assertThat(outContent.toString().trim()).isEqualTo("Hello World!");
