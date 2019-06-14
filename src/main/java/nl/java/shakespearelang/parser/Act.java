@@ -14,8 +14,9 @@ public class Act {
 
     public Act(String actString, int number) {
         String[] titleAndScenes = actString.split("(?=scene\\s\\w*:)");
-        this.actNumber = ActSceneHelper.checkNumber(number, titleAndScenes[0], "act");
-        this.title = ActSceneHelper.extractTitle(titleAndScenes[0], "act", "act\\s\\w.*:(.*?)\\.");
+        ActSceneHelper actSceneHelper = new ActSceneHelper("act", "act\\s\\w.*:(.*?)\\.");
+        this.actNumber = actSceneHelper.checkNumber(number, titleAndScenes[0]);
+        this.title = actSceneHelper.extractTitle(titleAndScenes[0]);
 
         for (int i = 1; i < titleAndScenes.length; i++) {
             scenes.add(new Scene(titleAndScenes[i].trim(), i));

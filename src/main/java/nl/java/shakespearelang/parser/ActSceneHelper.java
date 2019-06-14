@@ -1,16 +1,19 @@
 package nl.java.shakespearelang.parser;
 
+import lombok.AllArgsConstructor;
 import nl.java.shakespearelang.ParseException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.lang.String.format;
 import static nl.java.shakespearelang.parser.RomanToArabicConverter.romanToArabic;
 
+@AllArgsConstructor
 public class ActSceneHelper {
+    private String type;
+    private String regex;
 
-    public static int checkNumber(int number, String titleRaw, String type) {
+    int checkNumber(int number, String titleRaw) {
         if (!titleRaw.contains(type + " ") || !titleRaw.contains(":")) {
             throw new ParseException("Title of " + type + " does not contain '" + type + "' or a semicolumn!");
         }
@@ -21,7 +24,7 @@ public class ActSceneHelper {
         return number;
     }
 
-    public static String extractTitle(String title, String type, String regex) {
+    String extractTitle(String title) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(title);
         if (matcher.find()) {
