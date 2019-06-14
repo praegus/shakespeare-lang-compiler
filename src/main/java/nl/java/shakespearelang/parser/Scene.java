@@ -1,6 +1,7 @@
 package nl.java.shakespearelang.parser;
 
 import lombok.Getter;
+import nl.java.shakespearelang.ParseException;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
 import nl.java.shakespearelang.parser.line.Enter;
@@ -14,10 +15,6 @@ import nl.java.shakespearelang.parser.line.Push;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static nl.java.shakespearelang.parser.RomanToArabicConverter.romanToArabic;
 
 @Getter
 public class Scene {
@@ -27,36 +24,17 @@ public class Scene {
 
     public Scene(String sceneString, int number) {
         if (!sceneString.contains(".")) {
-            throw new RuntimeException("Title of scene is not ended properly with a dot!");
+            throw new ParseException("Title of scene is not ended properly with a dot!");
         }
         String[] titleAndLines = sceneString.split("\\.");
-        this.sceneNumber = checkSceneNumber(number, titleAndLines[0]);
-        this.title = extractTitle(titleAndLines[0]);
+        ActSceneHelper actSceneHelper = new ActSceneHelper("scene", "scene\\s\\w.*:(.*?)");
+        this.sceneNumber = actSceneHelper.checkNumber(number, titleAndLines[0]);
+        this.title = actSceneHelper.extractTitle(titleAndLines[0]);
         addLines(titleAndLines);
     }
 
     public Line getLine(int line) {
         return lines.get(line - 1);
-    }
-
-    private int checkSceneNumber(int number, String titleRaw) {
-        if (!titleRaw.contains("scene ") || !titleRaw.contains(":")) {
-            throw new RuntimeException("Title of scene does not contain 'scene' or a semicolumn!");
-        }
-        String romanNumeral = titleRaw.substring(0, titleRaw.indexOf(":")).replace("scene", "").trim();
-        if (romanToArabic(romanNumeral) != number) {
-            throw new RuntimeException("Scene numbering is not in sequence!");
-        }
-        return number;
-    }
-
-    private String extractTitle(String title) {
-        Pattern pattern = Pattern.compile("scene\\s\\w.*:(.*?)");
-        Matcher matcher = pattern.matcher(title);
-        if (matcher.find()) {
-            return matcher.group(1).trim();
-        }
-        throw new RuntimeException("Not title in scene found!");
     }
 
     private void addLines(String[] titleAndLines) {
@@ -68,8 +46,8 @@ public class Scene {
             } else if (line.contains("exit") || line.contains("exeunt")) {
                 lines.add(new Exit(line));
             } else if (line.contains(":")) {
-                currentSubject = line.substring(0, line.indexOf(":"));
-                addLineHelper(currentSubject, line.substring(line.indexOf(":") + 1).trim());
+                currentSubject = line.substring(0, line.indexOf(':'));
+                addLineHelper(currentSubject, line.substring(line.indexOf(':') + 1).trim());
             } else {
                 addLineHelper(currentSubject, line);
             }
@@ -107,7 +85,7 @@ public class Scene {
         } else if (line.startsWith("recall")) {
             lines.add(new Pop(currentSubject, line));
         } else {
-            throw new RuntimeException("type of line is unclear!" + line);
+            throw new ParseException("type of line is unclear!" + line);
         }
     }
 

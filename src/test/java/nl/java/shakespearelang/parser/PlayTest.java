@@ -1,6 +1,5 @@
 package nl.java.shakespearelang.parser;
 
-import nl.java.shakespearelang.Character;
 import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.Test;

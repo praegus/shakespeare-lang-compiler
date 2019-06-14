@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @EqualsAndHashCode
@@ -18,8 +17,8 @@ public class Exit extends Line {
         if (line.equals("exeunt")) {
             exeunt = true;
         } else {
-            String[] _characters = line.replace("exit", "").replace("exeunt", "").split("and");
-            for (String character : _characters) {
+            String[] characterStrings = line.replace("exit", "").replace("exeunt", "").split("and");
+            for (String character : characterStrings) {
                 this.characters.add(character.trim());
             }
         }

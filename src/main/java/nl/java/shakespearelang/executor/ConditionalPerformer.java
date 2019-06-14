@@ -1,6 +1,7 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.Characters;
+import nl.java.shakespearelang.parser.Characters;
+import nl.java.shakespearelang.ExecutionException;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
 
@@ -29,7 +30,7 @@ public class ConditionalPerformer {
         } else if (comparator.equals(Comparator.EQUALS)) {
             return firstvalue == secondValue;
         } else {
-            throw new RuntimeException("not implemented");
+            throw new ExecutionException("not implemented");
         }
     }
 
@@ -53,7 +54,7 @@ public class ConditionalPerformer {
             return Comparator.SMALLER_THAN;
         }
 
-        throw new RuntimeException("cannot decide comparator");
+        throw new ExecutionException("cannot decide comparator");
     }
 
     private int decideFirstParameter() {
@@ -71,7 +72,7 @@ public class ConditionalPerformer {
                 return characters.getCharacter(possibleCharacter).getValue();
             }
         }
-        throw new RuntimeException("cannot decide value of first parameter!");
+        throw new ExecutionException("cannot decide value of first parameter!");
     }
 
     private int decideLastParameter() {
@@ -85,7 +86,7 @@ public class ConditionalPerformer {
         } else if (characters.getCharacter(lastParameter).getValue() != null) {
             return characters.getCharacter(lastParameter).getValue();
         } else {
-            throw new RuntimeException("cannot decide value of last parameter!");
+            throw new ExecutionException("cannot decide value of last parameter!");
         }
     }
 
@@ -97,7 +98,7 @@ public class ConditionalPerformer {
             String vanafEersteAs = conditional.getLine().substring(conditional.getLine().indexOf("as ") + 3);
             lastParameter = vanafEersteAs.substring(vanafEersteAs.indexOf("as ") + 3);
         } else {
-            throw new RuntimeException("cannot decide value of last parameter!");
+            throw new ExecutionException("cannot decide value of last parameter!");
         }
         return lastParameter;
     }

@@ -13,8 +13,8 @@ public class Enter extends Line {
 
     public Enter(String line) {
         super(null, line);
-        String[] _characters = line.replace("enter", "").trim().split("and");
-        for (String character : _characters) {
+        String[] characterStrings = line.replace("enter", "").trim().split("and");
+        for (String character : characterStrings) {
             this.characters.add(character.trim());
         }
     }

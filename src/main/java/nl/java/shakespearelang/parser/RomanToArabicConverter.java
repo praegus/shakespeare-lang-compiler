@@ -1,5 +1,7 @@
 package nl.java.shakespearelang.parser;
 
+import nl.java.shakespearelang.ParseException;
+
 public class RomanToArabicConverter {
 
     public static int romanToArabic(String number) {
@@ -46,6 +48,6 @@ public class RomanToArabicConverter {
         if (number.startsWith("i")) {
             return 1 + romanToArabic(number.replaceFirst("i", ""));
         }
-        throw new RuntimeException("Not a valid Roman numeral!");
+        throw new ParseException("Not a valid Roman numeral!");
     }
 }

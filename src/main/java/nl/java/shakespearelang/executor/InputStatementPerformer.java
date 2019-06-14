@@ -1,5 +1,6 @@
 package nl.java.shakespearelang.executor;
 
+import nl.java.shakespearelang.ExecutionException;
 import nl.java.shakespearelang.parser.line.InputStatement;
 
 import java.io.BufferedReader;
@@ -30,6 +31,6 @@ public class InputStatementPerformer {
                 System.err.println("Invalid Format!");
             }
         }
-        throw new RuntimeException("unknown input type");
+        throw new ExecutionException("unknown input type");
     }
 }

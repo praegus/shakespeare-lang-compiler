@@ -1,7 +1,7 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.Characters;
-import nl.java.shakespearelang.Character;
+import nl.java.shakespearelang.parser.Characters;
+import nl.java.shakespearelang.parser.Character;
 import nl.java.shakespearelang.parser.line.Assignment;
 import org.junit.BeforeClass;
 import org.junit.Test;

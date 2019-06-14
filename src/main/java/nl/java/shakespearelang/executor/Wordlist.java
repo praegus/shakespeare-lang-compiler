@@ -4,12 +4,13 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.Arrays.*;
+import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
 
 public class Wordlist {
     private final List<String> negativeNouns;
@@ -43,7 +44,7 @@ public class Wordlist {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream is = classloader.getResourceAsStream(filename);
 
-        return IOUtils.toString(is, "UTF8");
+        return IOUtils.toString(is, StandardCharsets.UTF_8);
     }
 
     public boolean isAdjective(String word) {

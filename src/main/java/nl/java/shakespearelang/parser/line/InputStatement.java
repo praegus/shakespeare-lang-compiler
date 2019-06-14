@@ -1,5 +1,7 @@
 package nl.java.shakespearelang.parser.line;
 
+import nl.java.shakespearelang.ParseException;
+
 public class InputStatement extends Line {
     private final boolean readNumber;
 
@@ -10,7 +12,7 @@ public class InputStatement extends Line {
         } else if (line.equals("open your mind")) {
             this.readNumber = false;
         } else {
-            throw new RuntimeException("Unknown Input statement: " + line);
+            throw new ParseException("Unknown Input statement: " + line);
         }
     }
 

@@ -14,7 +14,7 @@ public class ActTest {
 
     @Test
     public void als_een_act_met_een_verkeerd_nummer_aangemaakt_wordt_dan_komt_er_een_foutmelding_terug() {
-        assertThatThrownBy(()->new Act("act ii: name.", 1)).isInstanceOf(RuntimeException.class).hasMessage("Act numbering is not in sequence!");
+        assertThatThrownBy(()->new Act("act ii: name.", 1)).isInstanceOf(RuntimeException.class).hasMessage("act numbering is not in sequence!");
     }
 
     @Test

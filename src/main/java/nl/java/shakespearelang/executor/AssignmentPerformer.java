@@ -1,6 +1,7 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.Characters;
+import nl.java.shakespearelang.parser.Characters;
+import nl.java.shakespearelang.ExecutionException;
 import nl.java.shakespearelang.parser.line.Assignment;
 
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ public class AssignmentPerformer {
             } else if (wordlist.isRedundant(word)) {
                 // do nothing
             } else if (word.equals(AND)) {
-                // do nothing operators.add(OperatorType.AND);
+                // do nothing
             } else if (word.equals(YOURSELF)) {
                 operators.add(OperatorType.OBJECT_VALUE);
             } else if (word.equals(ME)) {
@@ -115,7 +116,7 @@ public class AssignmentPerformer {
             } else if (word.equals(NOTHING)) {
                 operators.add(OperatorType.NOTHING);
             } else {
-                throw new RuntimeException("The word '" + word + "' is unknown!");
+                throw new ExecutionException("The word '" + word + "' is unknown!");
             }
         }
         return operators;
@@ -168,14 +169,14 @@ public class AssignmentPerformer {
                     objects.set(i, (int) objects.get(i + 1) % (int) objects.get(i + 2));
                     objects.remove(i + 1);
                 } else {
-                    throw new RuntimeException("Unknown operator type!");
+                    throw new ExecutionException("Unknown operator type!");
                 }
                 objects.remove(i + 1);
                 i = objects.size() - 1;
             } else if (objects.get(i) instanceof Integer) {
                 i--;
             } else {
-                throw new RuntimeException("Unknown operator type!");
+                throw new ExecutionException("Unknown operator type!");
             }
         }
         return (int) objects.get(0);
