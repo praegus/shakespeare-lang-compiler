@@ -1,7 +1,7 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.parser.Characters;
 import nl.java.shakespearelang.ExecutionException;
+import nl.java.shakespearelang.parser.Characters;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
 
@@ -83,10 +83,12 @@ public class ConditionalPerformer {
             return computeValue(lastParameter);
         } else if (lastParameter.equals("you")) {
             return characters.getCharacter(object).getValue();
-        } else if (characters.getCharacter(lastParameter).getValue() != null) {
+        } else if (characters.isCharacter(lastParameter)) {
             return characters.getCharacter(lastParameter).getValue();
         } else {
-            throw new ExecutionException("cannot decide value of last parameter!");
+            Assignment a = new Assignment(conditional.getSubject(), lastParameter);
+            AssignmentPerformer performer = new AssignmentPerformer(a, characters, characters.getCharacter(object).getValue(), wordlist);
+            return performer.performAssignment();
         }
     }
 

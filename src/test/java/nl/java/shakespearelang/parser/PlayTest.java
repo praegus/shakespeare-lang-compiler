@@ -75,14 +75,14 @@ public class PlayTest {
         assertThat(play.getActs()).hasSize(1);
     }
 
-    @Ignore // fixme!
+//    @Ignore // fixme!
     @Test
     public void parseGuess() throws IOException {
         Play play = new Play(readFile("guess.spl"));
 
-        assertThat(play.getTitle()).isEqualTo("prime number computation in copenhagen");
-        assertThat(play.getCharacters()).hasSize(4);
-        assertThat(play.getActs()).hasSize(2);
+        assertThat(play.getTitle()).isEqualTo("the guessing game, by jonas sj�bergh, jsh@nada<dot>kth<dot>se,think of a number between 1 and 1000, if the program's guess istoo high input \"<\", if it is too low input \">\" and if it is correctinput \"=\".ro");
+        assertThat(play.getCharacters()).hasSize(8);
+        assertThat(play.getActs()).hasSize(1);
     }
 
     @Test

@@ -58,6 +58,8 @@ public class PlayPerformerTest {
     @Ignore
     @Test
     public void guess() throws Exception {
+        ByteArrayInputStream in = new ByteArrayInputStream("500".getBytes());
+        System.setIn(in);
         String program = readFile("guess.spl");
 
         Play play = new Play(program);

@@ -6,7 +6,7 @@ import lombok.Getter;
 import static nl.java.shakespearelang.parser.line.TextSimplifiers.*;
 
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 public class Assignment extends Line {
     private String[] words;
 
