@@ -1,8 +1,6 @@
 package nl.java.shakespearelang.parser;
 
 import lombok.Getter;
-import nl.java.shakespearelang.Characters;
-import nl.java.shakespearelang.Character;
 import nl.java.shakespearelang.ParseException;
 
 import java.util.ArrayList;
@@ -25,34 +23,34 @@ public class Play {
         extractActs(simplifiedInput);
     }
 
-    public Act getAct(int actNumber){
-        if(acts.get(actNumber-1).getActNumber()==actNumber){
-            return acts.get(actNumber-1);
+    public Act getAct(int actNumber) {
+        if (acts.get(actNumber - 1).getActNumber() == actNumber) {
+            return acts.get(actNumber - 1);
         } else {
             throw new ParseException("Act numbering is not in order!");
         }
     }
 
-    public int getNumberOfActs(){
+    public int getNumberOfActs() {
         return acts.size();
     }
 
-    private String simplifyInput(String _input) {
-        String input = _input;
-        input = input.toLowerCase();
-        input = input.replaceAll("\n", "");
-        input = input.replaceAll("\t", " ");
-        input = input.replaceAll("\r", "");
-        input = input.replaceAll("!", ".");
-        input = input.replaceAll("\\?", ".");
-        input = input.replaceAll("\\[", "");
-        input = input.replaceAll("]", ".");
-        input = input.replaceAll("-", "");
+    private String simplifyInput(String input) {
+        String output = input;
+        output = output.toLowerCase();
+        output = output.replaceAll("\n", "");
+        output = output.replaceAll("\t", " ");
+        output = output.replaceAll("\r", "");
+        output = output.replaceAll("!", ".");
+        output = output.replaceAll("\\?", ".");
+        output = output.replaceAll("\\[", "");
+        output = output.replaceAll("]", ".");
+        output = output.replaceAll("-", "");
 
-        while (input.contains("  ")) {
-            input = input.replaceAll("  ", " ");
+        while (output.contains("  ")) {
+            output = output.replaceAll("  ", " ");
         }
-        return input;
+        return output;
     }
 
     private void extractPersonae(String input) {

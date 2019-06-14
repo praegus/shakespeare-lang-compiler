@@ -1,8 +1,8 @@
 package nl.java.shakespearelang.executor;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.java.shakespearelang.Characters;
-import nl.java.shakespearelang.Character;
+import nl.java.shakespearelang.parser.Characters;
+import nl.java.shakespearelang.parser.Character;
 import nl.java.shakespearelang.ExecutionException;
 import nl.java.shakespearelang.parser.Play;
 import nl.java.shakespearelang.parser.line.Assignment;

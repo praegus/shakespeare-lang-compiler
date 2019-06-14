@@ -1,4 +1,4 @@
-package nl.java.shakespearelang;
+package nl.java.shakespearelang.parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import lombok.Data;
 public class Character {
 	private String name;
 	private Integer value;
-	private List<Integer> stack = new ArrayList<Integer>();
+	private List<Integer> stack = new ArrayList<>();
 	
 	public Character(final String name, final Integer value) {
 		this.name = name;

@@ -1,6 +1,6 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.Characters;
+import nl.java.shakespearelang.parser.Characters;
 import nl.java.shakespearelang.ExecutionException;
 import nl.java.shakespearelang.parser.line.Assignment;
 
@@ -88,7 +88,7 @@ public class AssignmentPerformer {
             } else if (wordlist.isRedundant(word)) {
                 // do nothing
             } else if (word.equals(AND)) {
-                // do nothing operators.add(OperatorType.AND);
+                // do nothing
             } else if (word.equals(YOURSELF)) {
                 operators.add(OperatorType.OBJECT_VALUE);
             } else if (word.equals(ME)) {

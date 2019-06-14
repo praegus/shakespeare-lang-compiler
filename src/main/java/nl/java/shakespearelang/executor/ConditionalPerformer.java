@@ -1,6 +1,6 @@
 package nl.java.shakespearelang.executor;
 
-import nl.java.shakespearelang.Characters;
+import nl.java.shakespearelang.parser.Characters;
 import nl.java.shakespearelang.ExecutionException;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;

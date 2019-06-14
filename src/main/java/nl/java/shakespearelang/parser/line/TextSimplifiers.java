@@ -1,6 +1,9 @@
 package nl.java.shakespearelang.parser.line;
 
 public class TextSimplifiers {
+    private TextSimplifiers(){
+        // static class
+    }
     public static final String THEDIFFERENCEBETWEEN = "THEDIFFERENCEBETWEEN";
     public static final String THESUMOF = "THESUMOF";
     public static final String THEPRODUCTOF = "THEPRODUCTOF";
