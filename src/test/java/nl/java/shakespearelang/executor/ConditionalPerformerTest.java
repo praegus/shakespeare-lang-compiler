@@ -95,4 +95,17 @@ public class ConditionalPerformerTest {
 
         assertThat(conditionalPerformer.performConditional()).isFalse();
     }
+
+    @Test
+    public void am_i_as_bold_as_the_sum_of_oberon_and_a_pig() throws Exception {
+        Characters characters = new Characters();
+        characters.add(new Character("oberon", 9));
+        characters.add(new Character("juliet", 3));
+
+        Conditional conditional = new Conditional("juliet", "am i as bold as the sum of oberon and a pig");
+
+        ConditionalPerformer conditionalPerformer = new ConditionalPerformer(conditional, characters, "oberon", new Wordlist());
+
+        assertThat(conditionalPerformer.performConditional()).isFalse();
+    }
 }

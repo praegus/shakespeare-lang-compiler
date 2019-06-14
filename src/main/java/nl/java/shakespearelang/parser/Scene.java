@@ -46,7 +46,7 @@ public class Scene {
             } else if (line.contains("exit") || line.contains("exeunt")) {
                 lines.add(new Exit(line));
             } else if (line.contains(":")) {
-                currentSubject = line.substring(0, line.indexOf(':'));
+                currentSubject = line.substring(0, line.indexOf(':')).trim();
                 addLineHelper(currentSubject, line.substring(line.indexOf(':') + 1).trim());
             } else {
                 addLineHelper(currentSubject, line);
@@ -74,6 +74,8 @@ public class Scene {
             lines.add(new Conditional(currentSubject, line));
         } else if (line.matches("is (.*) worse than you")) {
             lines.add(new Conditional(currentSubject, line));
+        } else if (line.startsWith("if so, thou art")) {
+            lines.add(new Assignment(currentSubject, line.replace("if so, ", "")));
         } else if (line.startsWith("if not")) {
             lines.add(new Goto(currentSubject, line, false));
         } else if (line.startsWith("if")) {

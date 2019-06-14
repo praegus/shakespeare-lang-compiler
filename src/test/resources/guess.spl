@@ -1,4 +1,4 @@
-The guessing game, by Jonas Sjöbergh, jsh@nada<dot>kth<dot>se, 
+The guessing game, by Jonas Sjï¿½bergh, jsh@nada<dot>kth<dot>se,
 think of a number between 1 and 1000, if the program's guess is
 too high input "<", if it is too low input ">" and if it is correct
 input "=".
@@ -66,7 +66,7 @@ Romeo:
 	Speak your mind.
 [Exit Helen]
 [Enter Desdemona]
-Romeo: 
+Romeo:
 	Speak your mind.
 Romeo:
 	Am I as brave as Oberon? If so, let us proceed to Scene VI.
@@ -79,9 +79,9 @@ Romeo:
 [Enter Emilia and Juliet]
 Emilia:
 	Am I as good as the sum of Bianca and a flower? If so, thou
-	art as fine as Bianca.  
+	art as fine as Bianca.
 Juliet:
-	Remember me. Recall that I am your friend. Let us return to Scene II. 
+	Remember me. Recall that I am your friend. Let us return to Scene II.
 
 		    Scene V: Where more is needed.
 [Exeunt]
@@ -92,7 +92,7 @@ Bianca:
 	Am I as good as the difference between Emilia and a red rose? If so, thou
 	art as fine as Emilia.
 Juliet:
-	Remember me. Recall that I am your friend. Let us return to Scene II. 
+	Remember me. Recall that I am your friend. Let us return to Scene II.
 
 			  Scene VI: The End.
 [Exeunt]
