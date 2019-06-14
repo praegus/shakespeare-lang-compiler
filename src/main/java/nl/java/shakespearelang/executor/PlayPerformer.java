@@ -107,7 +107,7 @@ public class PlayPerformer {
 
     private void exitPersonae(Exit line) {
         if (line.isExeunt()) {
-            personaeOnStage = Collections.emptyList();
+            personaeOnStage = new ArrayList<>();
         } else {
             personaeOnStage.removeAll(line.getCharacters());
         }

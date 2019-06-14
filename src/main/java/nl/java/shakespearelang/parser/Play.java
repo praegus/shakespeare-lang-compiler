@@ -46,6 +46,7 @@ public class Play {
         input = input.replaceAll("\\?", ".");
         input = input.replaceAll("\\[", "");
         input = input.replaceAll("]", ".");
+        input = input.replaceAll("-", "");
 
         while (input.contains("  ")) {
             input = input.replaceAll("  ", " ");

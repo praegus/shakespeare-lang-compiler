@@ -89,7 +89,7 @@ public class AssignmentPerformerTest {
 
     @Test
     public void nothing(){
-        Assignment assignment = new Assignment("hamlet", "thou art as rotten as the difference between nothing and the sum of a snotty stinking half-witted hog and a small toad");
+        Assignment assignment = new Assignment("hamlet", "thou art as rotten as the difference between nothing and the sum of a snotty stinking halfwitted hog and a small toad");
 
         AssignmentPerformer assignmentPerformer = new AssignmentPerformer(assignment, null, 3, wordlist);
 

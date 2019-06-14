@@ -30,6 +30,7 @@ public class Assignment extends Line {
         line = line.replaceAll("stone wall", "stonewall");
         line = line.replaceAll("thyself", YOURSELF);
         line = line.replaceAll(" me", " "+ME);
+        line = line.replaceAll(" myself", " "+ME);
         this.words = line.split(" ");
     }
 }

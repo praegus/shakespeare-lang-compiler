@@ -94,6 +94,8 @@ public class Scene {
             lines.add(new Conditional(currentSubject, line));
         } else if (line.startsWith("is the")) {
             lines.add(new Conditional(currentSubject, line));
+        } else if (line.matches("is (.*) worse than you")) {
+            lines.add(new Conditional(currentSubject, line));
         } else if (line.startsWith("if not")) {
             lines.add(new Goto(currentSubject, line, false));
         } else if (line.startsWith("if")) {

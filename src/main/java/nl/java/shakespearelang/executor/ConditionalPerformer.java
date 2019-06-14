@@ -65,17 +65,21 @@ public class ConditionalPerformer {
             return characters.getCharacter(object).getValue();
         } else if (conditional.getLine().startsWith("am i")) {
             return characters.getCharacter(conditional.getSubject()).getValue();
-        } else {
-            throw new RuntimeException("cannot decide value of first parameter!");
+        } else if (conditional.getLine().startsWith("is")) {
+            String possibleCharacter = conditional.getWords()[1];
+            if (characters.isCharacter(possibleCharacter)) {
+                return characters.getCharacter(possibleCharacter).getValue();
+            }
         }
+        throw new RuntimeException("cannot decide value of first parameter!");
     }
 
     private int decideLastParameter() {
         String lastParameter = getLastParameterText();
         if (lastParameter.equals("nothing")) {
-        	return 0;
+            return 0;
         } else if (lastParameter.startsWith("a")) {
-        	return computeValue(lastParameter);
+            return computeValue(lastParameter);
         } else if (lastParameter.equals("you")) {
             return characters.getCharacter(object).getValue();
         } else if (characters.getCharacter(lastParameter).getValue() != null) {
