@@ -3,6 +3,7 @@ package nl.java.shakespearelang.executor;
 import lombok.extern.slf4j.Slf4j;
 import nl.java.shakespearelang.Characters;
 import nl.java.shakespearelang.Character;
+import nl.java.shakespearelang.ExecutionException;
 import nl.java.shakespearelang.parser.Play;
 import nl.java.shakespearelang.parser.line.Assignment;
 import nl.java.shakespearelang.parser.line.Conditional;
@@ -59,7 +60,7 @@ public class PlayPerformer {
     private void initializeCharacters(Characters characters) {
         for (Character character : characters) {
             if (!wordlist.isCharacter(character.getName())) {
-                throw new RuntimeException("Character " + character.getName() + " is not a Shakespeare personae!");
+                throw new ExecutionException("Character " + character.getName() + " is not a Shakespeare personae!");
             }
         }
         this.characters = characters;
@@ -100,7 +101,7 @@ public class PlayPerformer {
         	String object = getObjectOfLine(line);
         	characters.getCharacter(object).popStack();
         } else {
-            throw new RuntimeException("unknown line type: " + line.getClass().getSimpleName());
+            throw new ExecutionException("unknown line type: " + line.getClass().getSimpleName());
         }
         return findNextLine(actSceneLine);
     }
@@ -124,9 +125,9 @@ public class PlayPerformer {
     private String getObjectOfLine(Line line) {
     	String subject = line.getSubject();
         if (personaeOnStage.size() != 2) {
-            throw new RuntimeException("Number of characters on stage is not correct!");
+            throw new ExecutionException("Number of characters on stage is not correct!");
         } else if (!personaeOnStage.contains(subject)) {
-            throw new RuntimeException("Speaking person is not on stage!");
+            throw new ExecutionException("Speaking person is not on stage!");
         }
     	int indexOfSubject = personaeOnStage.indexOf(subject);
         if (indexOfSubject == 0) {

@@ -1,6 +1,7 @@
 package nl.java.shakespearelang.parser;
 
 import lombok.Getter;
+import nl.java.shakespearelang.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,25 +26,25 @@ public class Act {
         }
     }
 
-    public Scene getScene(int sceneNumber){
-        if(scenes.get(sceneNumber-1).getSceneNumber()==sceneNumber){
-            return scenes.get(sceneNumber-1);
+    public Scene getScene(int sceneNumber) {
+        if (scenes.get(sceneNumber - 1).getSceneNumber() == sceneNumber) {
+            return scenes.get(sceneNumber - 1);
         } else {
-            throw new RuntimeException("Scene numbering is not in order!");
+            throw new ParseException("Scene numbering is not in order!");
         }
     }
 
-    public int getNumberOfScenes(){
+    public int getNumberOfScenes() {
         return scenes.size();
     }
 
     private int checkActNumber(int number, String titleRaw) {
-        if(!titleRaw.contains("act ") || !titleRaw.contains(":")){
-            throw new RuntimeException("Title of act does not contain 'act' or a semicolumn!");
+        if (!titleRaw.contains("act ") || !titleRaw.contains(":")) {
+            throw new ParseException("Title of act does not contain 'act' or a semicolumn!");
         }
-        String romanNumeral = titleRaw.substring(0, titleRaw.indexOf(":")).replace("act", "").trim();
+        String romanNumeral = titleRaw.substring(0, titleRaw.indexOf(':')).replace("act", "").trim();
         if (romanToArabic(romanNumeral) != number) {
-            throw new RuntimeException("Act numbering is not in sequence!");
+            throw new ParseException("Act numbering is not in sequence!");
         }
         return number;
     }
@@ -54,6 +55,6 @@ public class Act {
         if (matcher.find()) {
             return matcher.group(1).trim();
         }
-        throw new RuntimeException("Not title in act found!");
+        throw new ParseException("Not title in act found!");
     }
 }

@@ -3,6 +3,7 @@ package nl.java.shakespearelang.parser;
 import lombok.Getter;
 import nl.java.shakespearelang.Characters;
 import nl.java.shakespearelang.Character;
+import nl.java.shakespearelang.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,9 @@ public class Play {
         String simplifiedInput = simplifyInput(input);
 
         if (!simplifiedInput.contains(".")) {
-            throw new RuntimeException("Cannot parse program, there is no title!");
+            throw new ParseException("Cannot parse program, there is no title!");
         }
-        this.title = simplifiedInput.substring(0, input.indexOf("."));
+        this.title = simplifiedInput.substring(0, input.indexOf('.'));
         extractPersonae(simplifiedInput);
         extractActs(simplifiedInput);
     }
@@ -28,7 +29,7 @@ public class Play {
         if(acts.get(actNumber-1).getActNumber()==actNumber){
             return acts.get(actNumber-1);
         } else {
-            throw new RuntimeException("Act numbering is not in order!");
+            throw new ParseException("Act numbering is not in order!");
         }
     }
 
@@ -56,14 +57,14 @@ public class Play {
 
     private void extractPersonae(String input) {
         if (!input.contains("act ")) {
-            throw new RuntimeException("Cannot parse program, there are no acts!");
+            throw new ParseException("Cannot parse program, there are no acts!");
         }
-        String[] personae = input.substring(input.indexOf(".") + 1, input.indexOf(" act ")).trim().split("\\.");
+        String[] personae = input.substring(input.indexOf('.') + 1, input.indexOf(" act ")).trim().split("\\.");
         for (String aPersonae : personae) {
             if (!aPersonae.contains(",")) {
-                throw new RuntimeException("Cannot parse program, Character has no description starting with a comma and ending with a dot!");
+                throw new ParseException("Cannot parse program, Character has no description starting with a comma and ending with a dot!");
             }
-            characters.add(new Character(aPersonae.substring(0, aPersonae.indexOf(",")).toLowerCase(), 0));
+            characters.add(new Character(aPersonae.substring(0, aPersonae.indexOf(',')).toLowerCase(), 0));
         }
     }
 
