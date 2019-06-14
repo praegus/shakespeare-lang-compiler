@@ -69,6 +69,8 @@ public class AssignmentPerformer {
             words = words.subList(5, words.size());
         } else if (line.startsWith("you")) {
             words.remove(0);
+        } else if(line.startsWith("thou art")){
+            words = words.subList(2, words.size());
         }
         return words;
     }

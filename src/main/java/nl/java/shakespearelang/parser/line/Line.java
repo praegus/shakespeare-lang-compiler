@@ -11,4 +11,8 @@ public abstract class Line {
         this.subject = subject;
         this.line = line.trim().replace("\n", " ");
     }
+
+    public String[] getWords(){
+        return line.split(" ");
+    }
 }
