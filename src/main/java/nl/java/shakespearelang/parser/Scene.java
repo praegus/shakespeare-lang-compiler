@@ -27,8 +27,8 @@ public class Scene {
             throw new ParseException("Title of scene is not ended properly with a dot!");
         }
         String[] titleAndLines = sceneString.split("\\.");
-        this.sceneNumber = ActSceneHelper.checkNumber(number, titleAndLines[0]);
-        this.title = ActSceneHelper.extractTitle(titleAndLines[0]);
+        this.sceneNumber = ActSceneHelper.checkNumber(number, titleAndLines[0], "scene");
+        this.title = ActSceneHelper.extractTitle(titleAndLines[0], "scene", "scene\\s\\w.*:(.*?)");
         addLines(titleAndLines);
     }
 

@@ -23,7 +23,7 @@ public class SceneTest {
 
     @Test
     public void if_a_scene_with_an_invalid_numberø_is_created_an_exception_is_thrown() {
-        assertThatThrownBy(() -> new Scene("scene ii: name.", 1)).isInstanceOf(RuntimeException.class).hasMessage("Scene numbering is not in sequence!");
+        assertThatThrownBy(() -> new Scene("scene ii: name.", 1)).isInstanceOf(RuntimeException.class).hasMessage("scene numbering is not in sequence!");
     }
 
     @Test
