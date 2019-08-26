@@ -7,6 +7,9 @@ cache:
 
 jobs:
   include:
-    - stage: test
+    - stage: build
       jdk: openjdk8
       script: mvn clean test
+    - stage: sonar
+      jdk: openjdk8
+      script: mvn sonar:sonar -Dsonar.projectKey=shakespeare-lang-compiler -Dsonar.host.url=$SONAR_ENDPOINT -Dsonar.login=$SONAR_LOGIN
