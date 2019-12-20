@@ -50,7 +50,7 @@ public class AssignmentPerformerStaticFunctionsTest {
 
     @Test
     public void adjectives_and_nouns_are_converted_to_operators() throws IOException {
-        List<OperatorType> result = AssignmentPerformer.setOperators(asList("fat", "little", "fine", "pig", "King", "father"), new Wordlist());
+        List<OperatorType> result = AssignmentPerformer.setOperators(asList("fat", "little", "fine", "pig", "king", "father"), new Wordlist());
         assertThat(result).containsExactly(ADJECTIVE, ADJECTIVE, ADJECTIVE, NEGATIVE_NOUN, POSITIVE_NOUN, POSITIVE_NOUN);
     }
 

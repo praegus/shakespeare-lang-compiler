@@ -57,11 +57,12 @@ public class Play {
         if (!input.contains("act ")) {
             throw new ParseException("Cannot parse program, there are no acts!");
         }
-        String[] personae = input.substring(0, input.indexOf(" act ")).trim().split("\\.");
+        String[] personae = input.substring(input.indexOf('.') + 1, input.indexOf(" act ")).trim().split("\\.");
         for (String aPersonae : personae) {
-            if (aPersonae.contains(",")) {
-            	characters.add(new Character(aPersonae.substring(0, aPersonae.indexOf(',')).toLowerCase(), 0));
+            if (!aPersonae.contains(",")) {
+                throw new ParseException("Cannot parse program, Character has no description starting with a comma and ending with a dot!");
             }
+            characters.add(new Character(aPersonae.substring(0, aPersonae.indexOf(',')).toLowerCase(), 0));
         }
     }
 
