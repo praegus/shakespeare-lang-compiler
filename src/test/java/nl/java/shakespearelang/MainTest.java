@@ -15,14 +15,6 @@ public class MainTest {
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
     @Test
-    public void if_a_program_is_given_as_argument_the_program_is_run() throws Exception {
-        String helloWorld = "helloWorld.spl";
-        Main.main(new String[]{helloWorld});
-
-        assertThat(outContent.toString().trim()).isEqualTo("Hello World!");
-    }
-
-    @Test
     public void if_no_arguments_are_given_an_exception_is_thrown() {
         assertThatThrownBy(() -> Main.main(new String[0])).isInstanceOf(RuntimeException.class).hasMessage("There is no program to load!");
     }
