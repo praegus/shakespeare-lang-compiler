@@ -1,19 +1,18 @@
 package nl.java.shakespearelang;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class MainTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-
+    
     @Test
     public void if_no_arguments_are_given_an_exception_is_thrown() {
         assertThatThrownBy(() -> Main.main(new String[0])).isInstanceOf(RuntimeException.class).hasMessage("There is no program to load!");
