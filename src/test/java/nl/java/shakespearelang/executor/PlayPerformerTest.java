@@ -83,6 +83,18 @@ public class PlayPerformerTest {
     }
 
     @Test
+    public void maarten() throws Exception {
+        String program = readFile("maarten.spl");
+
+        Play play = new Play(program);
+
+        PlayPerformer playPerformer = new PlayPerformer(play);
+        playPerformer.performPlay();
+
+        assertThat(outContent.toString().trim()).isEqualTo("Maarten");
+    }
+
+    @Test
     public void primes() throws Exception {
         ByteArrayInputStream in = new ByteArrayInputStream("10".getBytes());
         System.setIn(in);
